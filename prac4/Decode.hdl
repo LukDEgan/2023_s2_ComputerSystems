@@ -34,10 +34,10 @@ PARTS:
     And (a=in[15], b=in[8], out=c4);
     And (a=in[15], b=in[7], out=c5);
     And (a=in[15], b=in[6], out=c6);
-    And (a=in[15], b=in[5], out=d1);
+    Mux(a=true, b=in[5], sel=in[15], out=d1);
     And (a=in[15], b=in[4], out=d2);
     And (a=in[15], b=in[3], out=d3);
     And (a=in[15], b=in[2], out=j1);
     And (a=in[15], b=in[1], out=j2);
     And (a=in[15], b=in[0], out=j3);
-}
+}   
