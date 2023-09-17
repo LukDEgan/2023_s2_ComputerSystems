@@ -3,7 +3,8 @@
 
 // Put your code here.
 // bubble sort
-
+@R0
+M=0
 @R1
 D=M
 @i
@@ -94,5 +95,6 @@ M=M+1
 (END)
 @R0
 M=-1
-@END
+(END2)
+@END2
 0;JMP
