@@ -62,8 +62,6 @@ D;JLT //swap if a[j] > a[j+1]
 
 
 (SWAP)
-@R0
-M=-1
 @R4
 D=M
 @j
@@ -94,5 +92,7 @@ M=M+1
 
 
 (END)
+@R0
+M=-1
 @END
 0;JMP
