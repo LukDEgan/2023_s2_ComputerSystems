@@ -33,27 +33,26 @@ M=D
 
 
 (INNER)
-@j
-D=M
 @R2
-D=M-D // j < R2
-D=D-1
+D=M-1
 @iteration
-D=D-M // j < R2 - 1 - i 
+D=D-M
+@j
+D=M-D
 @NEXTOUTER
-D;JLE
+D;JGT
 
 @j
 A=M
 D=M
-@aj
+@R3
 M=D
 @j
 A=M+1
 D=M //a[j+1]
-@aj1
+@R4
 M=D
-@aj
+@R3
 D=D-M //a[j+1] - a[j] 
 @SWAP
 D;JLT //swap if a[j] > a[j+1]
@@ -63,13 +62,15 @@ D;JLT //swap if a[j] > a[j+1]
 
 
 (SWAP)
-@aj1
+@R0
+M=-1
+@R4
 D=M
 @j
 A=M
 M=D
 
-@aj
+@R3
 D=M
 @j
 A=M+1
