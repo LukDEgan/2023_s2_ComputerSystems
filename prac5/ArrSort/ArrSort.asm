@@ -17,7 +17,6 @@ M=M-1
 @iteration
 M=0
 
-
 (OUTER)
 @i
 D=M
@@ -31,7 +30,6 @@ D;JLE
 D=M
 @j
 M=D
-
 
 (INNER)
 @R2
@@ -54,13 +52,26 @@ D=M //a[j+1]
 @R4
 M=D
 @R3
-D=D-M //a[j+1] - a[j] 
+D=D-M
+
+// Check for overflow before performing subtraction
+@OVERFLOW_CHECK
+D;JLT // Jump if D < 0 (overflow occurred)
+@NO_OVERFLOW
+0;JMP
+
+(OVERFLOW_CHECK)
+@R0
+M=1 // Set R0 to True (overflow)
+@END
+0;JMP
+
+(NO_OVERFLOW)
 @SWAP
-D;JLT //swap if a[j] > a[j+1]
+D;JLT // Swap if a[j] > a[j+1]
 
 @NEXTINNER
 0;JMP
-
 
 (SWAP)
 @R4
@@ -75,13 +86,11 @@ D=M
 A=M+1
 M=D
 
-
 (NEXTINNER)
 @j
 M=M+1
 @INNER
 0;JMP
-
 
 (NEXTOUTER)
 @i
@@ -91,10 +100,6 @@ M=M+1
 @OUTER
 0;JMP
 
-
 (END)
-@R0
-M=-1
-(END2)
 @END2
 0;JMP
