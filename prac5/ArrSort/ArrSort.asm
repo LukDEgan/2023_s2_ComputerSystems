@@ -3,6 +3,15 @@
 
 // Put your code here.
 // bubble sort
+@R1
+D=M
+@END2
+D;JLE
+@R2
+D=M
+@END2
+D;JLE
+
 @R0
 M=0
 @R1
