@@ -3,6 +3,8 @@
 
 // Put your code here.
 // bubble sort
+
+//Checking bounds
 @R1
 D=M
 @END2
@@ -12,6 +14,7 @@ D=M
 @END2
 D;JLE
 
+//Initializing
 @R0
 M=0
 @R1
