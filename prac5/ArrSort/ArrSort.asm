@@ -112,12 +112,8 @@ D;JLT
 D=M
 @R3
 D=D-M //a[j+1] - a[j] 
-@SWAP
-D;JLT //swap if a[j] > a[j+1]
-
 @NEXTINNER
-0;JMP
-
+D;JGE //swap if a[j] > a[j+1]
 
 (SWAP)
 @R4
@@ -125,7 +121,6 @@ D=M
 @R11
 A=M
 M=D
-
 @R3
 D=M
 @R11
