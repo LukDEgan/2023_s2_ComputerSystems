@@ -27,13 +27,13 @@ D;JLE
 M=0
 @R1
 D=M
+@R2
+M=M+D
+M=M-1
 @R10
 M=D
 @R11
 M=D
-@R2
-M=M+D
-M=M-1
 @R12
 M=0
 
