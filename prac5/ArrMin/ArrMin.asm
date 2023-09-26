@@ -34,6 +34,17 @@ D=M //get address of current
 D=D-M //current address - end address. If gt 0, current address > end address, therefore out of bounds, jump to end
 @END
 D;JGT
+
+@R1
+A=M
+D=M
+@SUB
+D;JLT
+@R0
+D=M
+@SUB
+D;JLT
+
 @R1
 A=M
 D=M
@@ -66,10 +77,8 @@ A=M
 D=M
 @SWAP
 D;JLT
+
 (SUB)
-
-
-
 @R1
 A=M //if not, load current element address into A
 D=M //load current element value into D

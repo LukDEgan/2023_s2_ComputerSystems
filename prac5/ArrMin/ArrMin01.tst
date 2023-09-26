@@ -19,7 +19,7 @@ set RAM[14] 23,
 set RAM[15] -9,
 set RAM[16] 42,
 set RAM[17] -14,
-repeat 300 {
+repeat 400 {
   ticktock;    // Run for 300 clock cycles
 }
 set RAM[1] 10,  // Restore arguments in case program used them
