@@ -35,15 +35,6 @@ D=D-M //current address - end address. If gt 0, current address > end address, t
 @END
 D;JGT
 
-@R1
-A=M
-D=M
-@SUB
-D;JLT
-@R0
-D=M
-@SUB
-D;JLT
 
 @R1
 A=M
@@ -93,7 +84,6 @@ A=M // load current element into A and get value into D
 D=M
 @R0 // load D into R0
 M=D
-
 
 (NEXT)
 @R1 //address moves up one to next element
