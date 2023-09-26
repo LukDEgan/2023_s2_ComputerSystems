@@ -93,12 +93,16 @@ M=D
 @R7
 D=D|M
 @SUB
-D;JEQ
+D;JGE
+@R4
+D=M
 @SWAP
-0;JMP
+D;JLT
 
 
 (SUB)
+@R4
+D=M
 @R3
 D=D-M //a[j+1] - a[j] 
 @SWAP
