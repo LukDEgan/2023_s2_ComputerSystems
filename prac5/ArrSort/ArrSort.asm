@@ -74,6 +74,8 @@ D=M
 M=D
 @R6
 M=D
+
+
 //do xor logic to see if numbers have different sign (A AND NOT B) + (B AND NOT A)
 @R5
 D=M
@@ -98,7 +100,8 @@ D;JGE
 D=M
 @SWAP
 D;JLT
-
+@NEXTINNER
+0;JMP
 
 (SUB)
 @R4
