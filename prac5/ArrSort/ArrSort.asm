@@ -4,6 +4,10 @@
 // Put your code here.
 // bubble sort
 
+//R3 is a[j] value
+//R4 is a[j+1] value
+//R5 is sign of a[j]
+//R6 is sign of a[j+1]
 //Checking bounds
 @R1
 D=M
@@ -29,7 +33,7 @@ M=M-1
 @iteration
 M=0
 
-
+//outer loop start, checking if i is beyond limit
 (OUTER)
 @i
 D=M
@@ -44,7 +48,7 @@ D=M
 @j
 M=D
 
-
+//inner loop start checking if j is within limit
 (INNER)
 @R2
 D=M-1
@@ -55,16 +59,46 @@ D=M-D
 @NEXTOUTER
 D;JGT
 
+//next, getting a[j] and a[j+1]
 @j
 A=M
 D=M
-@R3
+@R3 //getting a[j] value and storing in R3
+M=D
+@R5
 M=D
 @j
 A=M+1
-D=M //a[j+1]
-@R4
+D=M 
+@R4 //storing a[j+1] value in R4
 M=D
+@R6
+M=D
+//do xor logic to see if numbers have different sign (A AND NOT B) + (B AND NOT A)
+@R5
+D=M
+@R6
+M=!M
+D=D&M
+@R7
+M=D
+@R6
+M=!M
+D=M
+@R5
+M=!M
+D=D&M
+@R8
+M=D
+@R7
+D=D|M
+@SUB
+D;JEQ
+@SWAP
+0;JMP
+
+
+(SUB)
 @R3
 D=D-M //a[j+1] - a[j] 
 @SWAP
