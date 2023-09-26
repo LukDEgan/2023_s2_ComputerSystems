@@ -8,6 +8,9 @@
 //R4 is a[j+1] value
 //R5 is sign of a[j]
 //R6 is sign of a[j+1]
+//R10 is i
+//R11 is j
+//R12 is iteration 
 //Checking bounds
 @R1
 D=M
@@ -23,19 +26,19 @@ D;JLE
 M=0
 @R1
 D=M
-@i
+@R10
 M=D
-@j
+@R11
 M=D
 @R2
 M=M+D
 M=M-1
-@iteration
+@R12
 M=0
 
 //outer loop start, checking if i is beyond limit
 (OUTER)
-@i
+@R10
 D=M
 @R2
 D=M-D //for(i<n-1)
@@ -45,29 +48,29 @@ D;JLE
 
 @R1
 D=M
-@j
+@R11
 M=D
 
 //inner loop start checking if j is within limit
 (INNER)
 @R2
 D=M-1
-@iteration
+@R12
 D=D-M
-@j
+@R11
 D=M-D
 @NEXTOUTER
 D;JGT
 
 //next, getting a[j] and a[j+1]
-@j
+@R11
 A=M
 D=M
 @R3 //getting a[j] value and storing in R3
 M=D
 @R5
 M=D
-@j
+@R11
 A=M+1
 D=M 
 @R4 //storing a[j+1] value in R4
@@ -118,28 +121,28 @@ D;JLT //swap if a[j] > a[j+1]
 (SWAP)
 @R4
 D=M
-@j
+@R11
 A=M
 M=D
 
 @R3
 D=M
-@j
+@R11
 A=M+1
 M=D
 
 
 (NEXTINNER)
-@j
+@R11
 M=M+1
 @INNER
 0;JMP
 
 
 (NEXTOUTER)
-@i
+@R10
 M=M+1
-@iteration
+@R12
 M=M+1
 @OUTER
 0;JMP
