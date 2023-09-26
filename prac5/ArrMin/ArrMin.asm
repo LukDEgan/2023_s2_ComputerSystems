@@ -35,7 +35,6 @@ D=D-M //current address - end address. If gt 0, current address > end address, t
 @END
 D;JGT
 
-
 @R1
 A=M
 D=M
@@ -46,6 +45,7 @@ D=M
 @R3
 M=D
 
+D=M
 @R4
 M=!M
 D=D&M
@@ -63,12 +63,14 @@ M=D
 D=D|M
 @SUB
 D;JGE
+
 @R1
 A=M
 D=M
 @SWAP
 D;JLT
-
+@NEXT
+0;JMP
 (SUB)
 @R1
 A=M //if not, load current element address into A
