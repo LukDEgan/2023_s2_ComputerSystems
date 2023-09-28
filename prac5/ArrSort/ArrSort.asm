@@ -31,11 +31,11 @@ D=M
 M=M+D
 M=M-1
 @R10
-M=D-1
+M=D
 @R11
-M=D-1
+M=D
 @R12
-M=-1
+M=0
 
 //outer loop start, checking if i is beyond limit
 (OUTER)
