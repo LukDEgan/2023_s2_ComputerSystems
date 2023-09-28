@@ -88,8 +88,6 @@ D=M
 D;JLT
 
 (SUB)
-@R4
-D=M
 @R3
 D=D-M //a[j+1] - a[j] 
 @NEXTINNER
