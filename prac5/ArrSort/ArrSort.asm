@@ -33,7 +33,7 @@ M=M-1
 @R10
 M=D-1
 @R11
-M=D
+M=D-1
 @R12
 M=-1
 
@@ -53,10 +53,12 @@ D;JLE
 @R1
 D=M
 @R11
-M=D
+M=D-1
 
 //inner loop start checking if j is within limit
 (INNER)
+@R11
+M=M+1
 @R2
 D=M-1
 @R12
@@ -83,7 +85,7 @@ D;JGE
 D=M
 @SUB
 D;JLT
-@NEXTINNER
+@INNER
 0;JMP
 (FIRSTPOS)
 @R4
@@ -94,7 +96,7 @@ D;JLT
 (SUB)
 @R3
 D=D-M //a[j+1] - a[j] 
-@NEXTINNER
+@INNER
 D;JGE //swap if a[j] > a[j+1]
 
 (SWAP)
@@ -110,9 +112,7 @@ A=M+1
 M=D
 
 
-(NEXTINNER)
-@R11
-M=M+1
+
 @INNER
 0;JMP
 
