@@ -1,0 +1,26 @@
+//do xor logic to see if numbers have different sign (A AND NOT B) + (B AND NOT A)
+@R5
+D=M
+@R6
+M=!M
+D=D&M
+@R7
+M=D
+@R6
+M=!M
+D=M
+@R5
+M=!M
+D=D&M
+@R8
+M=D
+@R7
+D=D|M
+@SUB
+D;JGE
+@R4
+D=M
+@SWAP
+D;JLT
+@NEXTINNER
+0;JMP
