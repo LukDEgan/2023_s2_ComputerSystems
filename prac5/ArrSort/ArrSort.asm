@@ -84,10 +84,8 @@ D;JLT
 (FIRSTPOS)
 @R4
 D=M
-@SUB
-D;JGE
 @SWAP
-0;JMP
+D;JLT
 
 (SUB)
 @R4
