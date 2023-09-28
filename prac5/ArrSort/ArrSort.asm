@@ -43,7 +43,6 @@ M=0
 D=M
 @R2
 D=M-D //for(i<n-1)
-D=D
 @END
 D;JLE
 
@@ -74,26 +73,20 @@ A=M
 D=M
 @R3 //getting a[j] value and storing in R3
 M=D
-
 @FIRSTPOS
 D;JGE
-@FIRSTNEG
+@R4
+D=M
+@SUB
 D;JLT
-
+@NEXTINNER
+0;JMP
 (FIRSTPOS)
 @R4
 D=M
 @SUB
 D;JGE
 @SWAP
-0;JMP
-
-(FIRSTNEG)
-@R4
-D=M
-@SUB
-D;JLT
-@NEXTINNER
 0;JMP
 
 (SUB)
