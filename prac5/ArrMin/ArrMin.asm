@@ -1,9 +1,9 @@
 // Finds the smallest element in the array of length R2 whose first element is at RAM[R1] and stores the result in R0.
 // (R0, R1, R2 refer to RAM[0], RAM[1], and RAM[2], respectively.)
 
-
-//R3 is min value so far
-//R4 is current element value
+//R1 is current element index
+//R3 is current element value
+//R4 is current min value
 // Put your code here.
 //check length is > 0
 @R2
@@ -38,39 +38,24 @@ D;JGT
 @R1
 A=M
 D=M
-@R4
+@R3
 M=D
 @R0
 D=M
-@R3
-M=D
-
-D=M
-@R4
-M=!M
-D=D&M
-@R7
-M=D
-@R4
-M=!M
-D=M
-@R3
-M=!M
-D=D&M
-@R8
-M=D
-@R7
-D=D|M
-@SUB
+@FIRSTPOS
 D;JGE
-
-@R1
-A=M
+@R3
 D=M
-@SWAP
+@SUB
 D;JLT
 @NEXT
 0;JMP
+(FIRSTPOS)
+@R3
+D=M
+@SWAP
+D;JLT
+
 (SUB)
 @R1
 A=M //if not, load current element address into A
