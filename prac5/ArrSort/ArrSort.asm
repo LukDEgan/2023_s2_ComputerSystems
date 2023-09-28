@@ -65,22 +65,16 @@ D;JGT
 
 //next, getting a[j] and a[j+1]
 @R11
-A=M
-D=M
-@R3 //getting a[j] value and storing in R3
-M=D
-@R5
-M=D
-@R11
 A=M+1
 D=M 
 @R4 //storing a[j+1] value in R4
 M=D
-@R6
+@R11
+A=M
+D=M
+@R3 //getting a[j] value and storing in R3
 M=D
 
-@R3
-D=M
 @FIRSTPOS
 D;JGE
 @FIRSTNEG
@@ -92,7 +86,7 @@ D=M
 @SUB
 D;JGE
 @SWAP
-D;JLT
+0;JMP
 
 (FIRSTNEG)
 @R4
@@ -101,8 +95,6 @@ D=M
 D;JLT
 @NEXTINNER
 0;JMP
-
-
 
 (SUB)
 @R4
