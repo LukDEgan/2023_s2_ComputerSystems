@@ -43,7 +43,7 @@ M=0
 D=M
 @R2
 D=M-D //for(i<n-1)
-D=D-1
+D=D
 @END
 D;JLE
 
@@ -55,7 +55,7 @@ M=D
 //inner loop start checking if j is within limit
 (INNER)
 @R2
-D=M
+D=M-1
 @R12
 D=D-M
 @R11
