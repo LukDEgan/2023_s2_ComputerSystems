@@ -55,7 +55,7 @@ M=D
 //inner loop start checking if j is within limit
 (INNER)
 @R2
-D=M-1
+D=M
 @R12
 D=D-M
 @R11
