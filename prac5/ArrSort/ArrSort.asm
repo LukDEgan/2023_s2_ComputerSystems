@@ -31,14 +31,18 @@ D=M
 M=M+D
 M=M-1
 @R10
-M=D
+M=D-1
 @R11
-M=D
+M=D-1
 @R12
-M=0
+M=-1
 
 //outer loop start, checking if i is beyond limit
 (OUTER)
+@R10
+M=M+1
+@R12
+M=M+1
 @R10
 D=M
 @R2
@@ -53,13 +57,15 @@ M=D
 
 //inner loop start checking if j is within limit
 (INNER)
+@R11
+M=M+1
 @R2
 D=M-1
 @R12
 D=D-M
 @R11
 D=M-D
-@NEXTOUTER
+@OUTER
 D;JGT
 
 //next, getting a[j] and a[j+1]
@@ -79,7 +85,7 @@ D;JGE
 D=M
 @SUB
 D;JLT
-@NEXTINNER
+@INNER
 0;JMP
 (FIRSTPOS)
 @R4
@@ -90,7 +96,7 @@ D;JLT
 (SUB)
 @R3
 D=D-M //a[j+1] - a[j] 
-@NEXTINNER
+@INNER
 D;JGE //swap if a[j] > a[j+1]
 
 (SWAP)
@@ -104,22 +110,6 @@ D=M
 @R11
 A=M+1
 M=D
-
-
-(NEXTINNER)
-@R11
-M=M+1
-@INNER
-0;JMP
-
-
-(NEXTOUTER)
-@R10
-M=M+1
-@R12
-M=M+1
-@OUTER
-0;JMP
 
 
 (END)
