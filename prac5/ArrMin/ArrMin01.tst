@@ -7,6 +7,7 @@ output-file ArrMin01.out,
 compare-to ArrMin01.cmp,
 output-list RAM[0]%D2.6.2 RAM[1]%D2.6.2 RAM[2]%D2.6.2 RAM[10]%D2.6.2 RAM[11]%D2.6.2 RAM[12]%D2.6.2 RAM[13]%D2.6.2 RAM[14]%D2.6.2 RAM[15]%D2.6.2 RAM[16]%D2.6.2 RAM[17]%D2.6.2;
 
+//basic mixed integers
 set PC 0,
 set RAM[0]  0,  // Set R0
 set RAM[1]  10, // Set R1

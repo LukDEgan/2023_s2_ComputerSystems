@@ -7,6 +7,7 @@ output-file ArrSort04.out,
 compare-to ArrSort04.cmp,
 output-list RAM[0]%D2.6.2 RAM[1]%D2.6.2 RAM[2]%D2.6.2 RAM[100]%D2.6.2 RAM[101]%D2.6.2 RAM[102]%D2.6.2 RAM[103]%D2.6.2 RAM[104]%D2.6.2;
 
+//testing a negative overflow
 set PC 0,
 set RAM[0]  0,  // Set R0
 set RAM[1]  100, // Set R1

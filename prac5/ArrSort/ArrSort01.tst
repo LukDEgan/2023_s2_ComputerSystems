@@ -7,6 +7,7 @@ output-file ArrSort01.out,
 compare-to ArrSort01.cmp,
 output-list RAM[0]%D2.6.2 RAM[1]%D2.6.2 RAM[2]%D2.6.2 RAM[30]%D2.6.2 RAM[31]%D2.6.2 RAM[32]%D2.6.2 RAM[33]%D2.6.2;
 
+//testing zeros and basic integers
 set PC 0,
 set RAM[0]  0,  // Set R0
 set RAM[1]  30, // Set R1
