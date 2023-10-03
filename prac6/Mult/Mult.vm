@@ -3,12 +3,16 @@
 // x & y are static variables
 // temp 0 is x and temp 1 is y
 // Put your code here.
+
+
 push constant 0
 pop local 0
 push static 0
 pop temp 0
 push static 1
 pop temp 1
+
+
 push temp 0
 push constant 0
 lt
@@ -17,6 +21,16 @@ if-goto WHILE_LOOP
 push temp 0
 neg
 pop temp 0
+push temp 1
+push constant 0
+lt 
+not
+if-goto WHILE_LOOP
+push temp 1 
+neg
+pop temp 1
+
+
 
 label WHILE_LOOP
 push temp 0
