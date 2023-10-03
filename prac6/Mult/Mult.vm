@@ -7,16 +7,6 @@ push constant 0
 pop local 0
 push static 0
 pop static 10
-push static 0
-push static 1
-lt
-if-goto WHILE_LOOP
-push static 0
-pop static 2
-push static 1
-pop static 0
-push static 2
-pop static 1
 label WHILE_LOOP
 push static 10
 push constant 0
