@@ -1,26 +1,38 @@
 // Calculates a = x*y
 // a is a local variable
 // x & y are static variables
-
+// temp 0 is x and temp 1 is y
 // Put your code here.
 push constant 0
 pop local 0
 push static 0
-pop static 10
+pop temp 0
+push static 1
+pop temp 1
+push static 0
+push static 1
+lt
+if-goto WHILE_LOOP
+push temp 0
+pop temp 2
+push temp 1
+pop temp 0
+push temp 2
+pop temp 1
 label WHILE_LOOP
-push static 10
+push temp 0
 push constant 0
 gt
 not 
 if-goto END
 push local 0
-push static 1
+push temp 1
 add
 pop local 0
-push static 10
+push temp 0
 push constant 1
 sub
-pop static 10
+pop temp 0
 goto WHILE_LOOP
 label END
 goto END
