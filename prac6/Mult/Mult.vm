@@ -9,16 +9,15 @@ push static 0
 pop temp 0
 push static 1
 pop temp 1
-push static 0
-push static 1
+push temp 0
+push constant 0
 lt
+not
 if-goto WHILE_LOOP
 push temp 0
-pop temp 2
-push temp 1
+neg
 pop temp 0
-push temp 2
-pop temp 1
+
 label WHILE_LOOP
 push temp 0
 push constant 0
