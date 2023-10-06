@@ -9,8 +9,18 @@ push constant 0
 pop local 0
 
 push static 0
-call Mult.absolute 1
+push constant 0 
+lt
+if-goto NEG
+push static 0
 pop temp 0
+goto NOTNEG
+label NEG
+push static 0
+neg
+pop temp 0
+
+label NOTNEG
 push static 1
 pop temp 1
 push static 0
@@ -44,16 +54,3 @@ pop temp 0
 goto WHILE_LOOP
 label END
 goto END
-
-
-function Mult.absolute 1
-push argument 0
-push constant 0 
-lt
-if-goto NEG
-push argument 0
-return
-label NEG
-push argument 0
-neg
-return
