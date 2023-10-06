@@ -38,7 +38,7 @@ label SWAP
 push temp 0
 push temp 1
 lt
-if-goto WHILE_LOOP
+if-goto CHECKING_SIGNS
 push temp 0
 pop temp 2
 push temp 1
@@ -48,14 +48,23 @@ pop temp 1
 push constant 1
 pop temp 2
 
+label CHECKING_SIGNS
 push static 0
 push constant 0
 lt
-if-goto SIGNSWAP
+if-goto FIRSTNEG
 push static 1
 push constant 0
 lt
 if-goto SIGNSWAP
+goto WHILE_LOOP
+label FIRSTNEG
+push static 1
+push constant 0
+lt
+not
+if-goto SIGNSWAP
+
 
 label WHILE_LOOP
 push temp 0
