@@ -4,33 +4,28 @@
 // temp 0 is x and temp 1 is y
 // Put your code here.
 
-
+// make product 0 and store x and y in temp as to not mess with them
 push constant 0
 pop local 0
+
 push static 0
+call Mult.absolute 1
 pop temp 0
 push static 1
 pop temp 1
-
-
-push temp 0
+push static 0
 push constant 0
 lt
 not
 if-goto WHILE_LOOP
-push temp 0
-neg
-pop temp 0
-push temp 1
+push static 1
 push constant 0
-lt 
-not
+lt
+not 
 if-goto WHILE_LOOP
-push temp 1 
+push static 1
 neg
 pop temp 1
-
-
 
 label WHILE_LOOP
 push temp 0
@@ -49,3 +44,16 @@ pop temp 0
 goto WHILE_LOOP
 label END
 goto END
+
+
+function Mult.absolute 1
+push argument 0
+push constant 0 
+lt
+if-goto NEG
+push argument 0
+return
+label NEG
+push argument 0
+neg
+return
