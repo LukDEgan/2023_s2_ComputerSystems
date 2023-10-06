@@ -5,56 +5,64 @@
 // Put your code here.
 
 // make product 0 and store x and y in temp as to not mess with them
+
 push constant 0
 pop local 0
 
 push static 0
-push constant 0 
+push constant 0
+lt
+if-goto NEG_1
+push static 0
+pop temp 0
+goto NEXT
+label NEG_1
+push static 0
+neg
+pop temp 0
+
+label NEXT
+push static 1
+push constant 0
 lt
 if-goto NEG
-push static 0
-pop temp 0
-goto NOTNEG
+push static 1
+pop temp 1
+goto SWAP
 label NEG
-push static 0
+push static 1
 neg
+pop temp 1
+
+label SWAP
+push temp 0
+push temp 1
+lt
+if-goto WHILE_LOOP
+push temp 0
+pop temp 2
+push temp 1
 pop temp 0
+push temp 2
+pop temp 1
 push constant 1
-neg 
 pop temp 2
 
-label NOTNEG
-push static 1
-pop temp 1
 push static 0
 push constant 0
 lt
-not
-if-goto WHILE_LOOP
+if-goto SIGNSWAP
 push static 1
 push constant 0
 lt
-not 
-if-goto SKIP
-push static 1
-neg
-pop temp 1
-push temp 2
-push constant 0
-lt 
-not
-if-goto WHILE_LOOP
+if-goto SIGNSWAP
 
-label SKIP 
-push temp 1
-neg 
-pop temp 1
 label WHILE_LOOP
 push temp 0
 push constant 0
 gt
 not 
-if-goto END
+if-goto FINISH
 push local 0
 push temp 1
 add
@@ -64,5 +72,22 @@ push constant 1
 sub
 pop temp 0
 goto WHILE_LOOP
+
+label SIGNSWAP
+push constant 1
+neg
+pop temp 2
+goto WHILE_LOOP
+
+label FINISH
+push temp 2
+push constant 0
+lt
+if-goto NEGATIVE_PROD
+goto END
+label NEGATIVE_PROD
+push local 0
+neg
+pop local 0
 label END
 goto END
