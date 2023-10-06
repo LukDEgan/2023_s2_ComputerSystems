@@ -19,6 +19,9 @@ label NEG
 push static 0
 neg
 pop temp 0
+push constant 1
+neg 
+pop temp 2
 
 label NOTNEG
 push static 1
@@ -32,11 +35,20 @@ push static 1
 push constant 0
 lt
 not 
-if-goto WHILE_LOOP
+if-goto SKIP
 push static 1
 neg
 pop temp 1
+push temp 2
+push constant 0
+lt 
+not
+if-goto WHILE_LOOP
 
+label SKIP 
+push temp 1
+neg 
+pop temp 1
 label WHILE_LOOP
 push temp 0
 push constant 0
