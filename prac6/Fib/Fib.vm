@@ -3,3 +3,29 @@
 
 // Put your code here.
 
+function Fib.fib 1
+push argument 0
+push constant 1
+lt
+not
+if-goto IFONE
+push constant 0
+return
+label IFONE
+push argument 0
+push constant 3
+lt
+not
+if-goto RECCALL
+push constant 1
+return
+push argument 0
+push constant 1
+sub
+call Fib.fib 1
+push argument 0
+push constant 2
+sub
+call Fib.fib 1
+add
+return
