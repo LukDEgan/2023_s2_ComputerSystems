@@ -19,6 +19,10 @@ pop local 1
 
 label LOOP
 push pointer 1
+push constant 1
+add
+pop pointer 1
+push pointer 1
 push local 0
 sub
 push constant 0
@@ -30,15 +34,10 @@ sub
 push constant 0
 gt
 not
-if-goto NEXT
+if-goto LOOP
 push that 0
 pop local 1
-label NEXT
-push pointer 1
-push constant 1
-add
-pop pointer 1
-goto LOOP
+
 
 label LOOP_END
 push local 1
