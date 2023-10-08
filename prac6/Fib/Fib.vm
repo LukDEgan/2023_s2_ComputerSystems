@@ -13,12 +13,13 @@ push constant 0
 return
 label IFONE
 push argument 0
-push constant 3
+push constant 2
 lt
 not
 if-goto RECCALL
 push constant 1
 return
+label RECCALL
 push argument 0
 push constant 1
 sub
