@@ -29,9 +29,9 @@ set argument[1] 200,  // argument 1
 set argument[2] 300,  // argument 2
 
 set RAM[2048] 22000,  // Set Arr[0]
-set RAM[2049] 20000,  // Set Arr[1]
+set RAM[2049] -20000,  // Set Arr[1]
 set RAM[2050] 1043,  // Set Arr[2]
-set RAM[2051] 30000;  // Set Arr[3]
+set RAM[2051] -30000;  // Set Arr[3]
 
 repeat 200 {        // Change this number to cover the number of instructions in the VM test file
   vmstep;
