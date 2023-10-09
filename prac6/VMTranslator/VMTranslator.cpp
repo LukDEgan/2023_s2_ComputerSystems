@@ -7,9 +7,7 @@ using namespace std;
 /**
  * VMTranslator constructor
  */
-VMTranslator::VMTranslator() {
-  // Your code here
-}
+VMTranslator::VMTranslator() { label_counter = 0; }
 
 /**
  * VMTranslator destructor
@@ -102,20 +100,24 @@ string VMTranslator::vm_neg() {
 
 /** Generate Hack Assembly code for a VM eq operation */
 string VMTranslator::vm_eq() {
+  label_counter++;
+  string truelabel = "EQ_TRUE_" + to_string(label_counter);
+  label_counter++;
+  string falselabel = "EQ_FALSE_" + to_string(label_counter);
   string result;
   result += "@SP //eq\n";
   result += "AM=M-1\n";
   result += "D=M\n";
   result += "A=A-1\n";
   result += "D=M-D\n";
-  result += "@EQ\n";
+  result += "@" + truelabel + "\n";
   result += "D;JEQ\n";
   result += "D=0\n";
-  result += "@NOTEQ\n";
+  result += "@" + falselabel + "\n";
   result += "0;JMP\n";
-  result += "(EQ)\n";
+  result += "(" + truelabel + ")\n";
   result += "D=-1\n";
-  result += "(NOTEQ)\n";
+  result += "(" + falselabel + ")\n";
   result += "@SP\n";
   result += "A=M-1\n";
   result += "M=D\n";
@@ -124,20 +126,24 @@ string VMTranslator::vm_eq() {
 
 /** Generate Hack Assembly code for a VM gt operation */
 string VMTranslator::vm_gt() {
+  label_counter++;
+  string truelabel = "GT_TRUE_" + to_string(label_counter);
+  label_counter++;
+  string falselabel = "GT_FALSE_" + to_string(label_counter);
   string result;
   result += "@SP //gt\n";
   result += "AM=M-1\n";
   result += "D=M\n";
   result += "A=A-1\n";
   result += "D=M-D\n";
-  result += "@GT\n";
+  result += "@" + truelabel + "\n";
   result += "D;JGT\n";
   result += "D=0\n";
-  result += "@NOTGT\n";
+  result += "@" + falselabel + "\n";
   result += "0;JMP\n";
-  result += "(GT)\n";
+  result += "(" + truelabel + ")\n";
   result += "D=-1\n";
-  result += "(NOTGT)\n";
+  result += "(" + falselabel + ")\n";
   result += "@SP\n";
   result += "A=M-1\n";
   result += "M=D\n";
@@ -146,20 +152,24 @@ string VMTranslator::vm_gt() {
 
 /** Generate Hack Assembly code for a VM lt operation */
 string VMTranslator::vm_lt() {
+  label_counter++;
+  string truelabel = "LT_TRUE_" + to_string(label_counter);
+  label_counter++;
+  string falselabel = "LT_FALSE_" + to_string(label_counter);
   string result;
   result += "@SP //lt\n";
   result += "AM=M-1\n";
   result += "D=M\n";
   result += "A=A-1\n";
   result += "D=M-D\n";
-  result += "@LT\n";
+  result += "@" + truelabel + "\n";
   result += "D;JLT\n";
   result += "D=0\n";
-  result += "@NOTLT\n";
+  result += "@" + falselabel + "\n";
   result += "0;JMP\n";
-  result += "(LT)\n";
+  result += "(" + truelabel + ")\n";
   result += "D=-1\n";
-  result += "(NOTLT)\n";
+  result += "(" + falselabel + ")\n";
   result += "@SP\n";
   result += "A=M-1\n";
   result += "M=D\n";

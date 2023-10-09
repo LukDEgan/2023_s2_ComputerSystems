@@ -35,6 +35,7 @@ class VMTranslator {
 
  private:
   static string SegmentTranslator(string segment, int offset);
+  static int label_counter;
 };
 
 #endif /* VMTRANSLATOR_H */
