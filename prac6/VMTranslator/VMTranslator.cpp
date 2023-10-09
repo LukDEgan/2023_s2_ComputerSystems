@@ -3,11 +3,11 @@
 #include <string>
 
 using namespace std;
-
+int VMTranslator::label_counter = 0;
 /**
  * VMTranslator constructor
  */
-VMTranslator::VMTranslator() { label_counter = 0; }
+VMTranslator::VMTranslator() {}
 
 /**
  * VMTranslator destructor
