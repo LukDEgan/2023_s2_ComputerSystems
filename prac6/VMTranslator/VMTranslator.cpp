@@ -24,17 +24,17 @@ string VMTranslator::vm_push(string segment, int offset) {
   string segmentStr = SegmentTranslator(segment, offset);
   string result;
   if (segment == "constant") {
-    result += "@" + segmentStr + " //pop" + segment + " " + indexStr + "\n";
+    result += "@" + indexStr + " //push" + segment + " " + indexStr + "\n";
     result += "D=A\n";
   } else if (segment == "static" || segment == "temp" || segment == "pointer") {
-    result += "@" + segmentStr + " //pop" + segment + " " + indexStr + "\n";
+    result += "@" + segmentStr + " //push" + segment + " " + indexStr + "\n";
     result += "D=A\n";
     result += "@" + indexStr + "\n";
     result += "A=D+A\n";
     result += "D=M\n";
   } else if (segment == "argument" || segment == "this" || segment == "that" ||
              segment == "local") {
-    result += "@" + segmentStr + " //pop" + segment + " " + indexStr + "\n";
+    result += "@" + segmentStr + " //push" + segment + " " + indexStr + "\n";
     result += "D=M\n";
     result += "@" + indexStr + "\n";
     result += "A=D+A\n";
