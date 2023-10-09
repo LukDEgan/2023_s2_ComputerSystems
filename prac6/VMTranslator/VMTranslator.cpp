@@ -226,7 +226,7 @@ string VMTranslator::vm_goto(string label) {
 string VMTranslator::vm_if(string label) {
   string result;
   result += "@SP // if-goto " + label + "\n";
-  result += "A=M\n";
+  result += "AM=M-1\n";
   result += "D=M\n";
   result += "@" + label + "\n";
   result += "D;JNE\n";
