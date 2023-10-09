@@ -235,7 +235,16 @@ string VMTranslator::vm_if(string label) {
 
 /** Generate Hack Assembly code for a VM function operation */
 string VMTranslator::vm_function(string function_name, int n_vars) {
-  return "";
+  string result;
+  result += "(" + function_name + ") // function " + function_name +
+            to_string(n_vars) + "\n";
+  for (int i = 0; i < n_vars; i++) {
+    result += "@SP\n";
+    result += "M=M+1\n";
+    result += "A=M-1\n";
+    result += "M=0\n";
+  }
+  return result;
 }
 
 /** Generate Hack Assembly code for a VM call operation */
