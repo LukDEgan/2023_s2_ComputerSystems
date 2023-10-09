@@ -44,7 +44,7 @@ string VMTranslator::vm_push(string segment, int offset) {
   result += "A=M\n";
   result += "M=D\n";
   result += "@SP\n";
-  result += "@AM=M+1";
+  result += "@M=M+1";
   return result;
 }
 
@@ -59,9 +59,11 @@ string VMTranslator::vm_pop(string segment, int offset) {
   } else if (segment == "static") {
     result += "@" + segmentStr + "\n";
     result += "D=A\n";
+  } else if (segment == "temp" || segment == "pointer") {
+    result += "@" + segmentStr + "\n";
+    result += "D=A\n";
   } else if (segment == "arguement" || segment == "local" ||
-             segment == "this" || segment == "that" || segment == "temp" ||
-             segment == "pointer") {
+             segment == "this" || segment == "that") {
     result += "@" + segmentStr + "\n";
     result += "D=M\n";
   }
