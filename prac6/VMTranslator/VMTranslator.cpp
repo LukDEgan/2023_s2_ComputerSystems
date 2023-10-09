@@ -125,7 +125,7 @@ string VMTranslator::vm_eq() {
 /** Generate Hack Assembly code for a VM gt operation */
 string VMTranslator::vm_gt() {
   string result;
-  result += "@SP //eq\n";
+  result += "@SP //gt\n";
   result += "AM=M-1\n";
   result += "D=M\n";
   result += "A=A-1\n";
@@ -145,7 +145,26 @@ string VMTranslator::vm_gt() {
 }
 
 /** Generate Hack Assembly code for a VM lt operation */
-string VMTranslator::vm_lt() { return ""; }
+string VMTranslator::vm_lt() {
+  string result;
+  result += "@SP //lt\n";
+  result += "AM=M-1\n";
+  result += "D=M\n";
+  result += "A=A-1\n";
+  result += "D=M-D\n";
+  result += "@LT\n";
+  result += "D;JLT\n";
+  result += "D=0\n";
+  result += "@NOTLT\n";
+  result += "0;JMP\n";
+  result += "(LT)\n";
+  result += "D=-1\n";
+  result += "(NOTLT)\n";
+  result += "@SP\n";
+  result += "A=M-1\n";
+  result += "M=D\n";
+  return result;
+}
 
 /** Generate Hack Assembly code for a VM and operation */
 string VMTranslator::vm_and() { return ""; }
