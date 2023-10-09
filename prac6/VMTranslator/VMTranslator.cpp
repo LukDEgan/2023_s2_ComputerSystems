@@ -92,7 +92,13 @@ string VMTranslator::vm_sub() {
 }
 
 /** Generate Hack Assembly code for a VM neg operation */
-string VMTranslator::vm_neg() { return ""; }
+string VMTranslator::vm_neg() {
+  string result;
+  result += "@SP\n";
+  result += "A=M-1\n";
+  result += "M=-M\n";
+  return result;
+}
 
 /** Generate Hack Assembly code for a VM eq operation */
 string VMTranslator::vm_eq() { return ""; }
