@@ -122,7 +122,7 @@ string VMTranslator::SegmentTranslator(string segment, int offset) {
   if (segment == "argument") return "ARG";
   if (segment == "this") return "THIS";
   if (segment == "that") return "THAT";
-  if (segment == "temp") return "R5";
-  if (segment == "pointer") return "R3";
-  return "error";
+  if (segment == "temp") return "5";
+  if (segment == "pointer") return "3";
+  return "constant or error";
 }
