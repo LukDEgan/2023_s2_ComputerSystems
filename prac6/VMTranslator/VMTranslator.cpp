@@ -37,7 +37,7 @@ string VMTranslator::vm_push(string segment, int offset) {
   if (segment == "arguement" || segment == "this" || segment == "that" ||
       segment == "local") {
     result += "@" + segmentStr + "\n";
-    result += "D=M\n";
+    result += "D=A\n";
     result += "@" + indexStr + "\n";
     result += "A=D+A\n";
     result += "D=M\n";
