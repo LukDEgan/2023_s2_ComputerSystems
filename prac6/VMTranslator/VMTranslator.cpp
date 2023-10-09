@@ -44,7 +44,7 @@ string VMTranslator::vm_push(string segment, int offset) {
   result += "A=M\n";
   result += "M=D\n";
   result += "@SP\n";
-  result += "@M=M+1";
+  result += "M=M+1";
   return result;
 }
 
