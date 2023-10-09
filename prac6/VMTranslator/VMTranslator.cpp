@@ -238,10 +238,10 @@ string VMTranslator::vm_function(string function_name, int n_vars) {
   string result;
   result += "(" + function_name + ") // function " + function_name +
             to_string(n_vars) + "\n";
-  for (int i = 0; i < n_vars; i++) {
+  for (int i = n_vars; i > 0; i--) {
     result += "@SP\n";
-    result += "M=M+1\n";
-    result += "A=M-1\n";
+    result += "AM=M+1\n";
+    result += "A=A-1\n";
     result += "M=0\n";
   }
   return result;
