@@ -24,17 +24,17 @@ string VMTranslator::vm_push(string segment, int offset) {
   string segmentStr = SegmentTranslator(segment, offset);
   string result;
   if (segment == "constant") {
-    result += "@" + indexStr + "\n";
+    result += "@" + segmentStr + " //pop" + segment + " " + indexStr + "\n";
     result += "D=A\n";
   } else if (segment == "static" || segment == "temp" || segment == "pointer") {
-    result += "@" + segmentStr + "\n";
+    result += "@" + segmentStr + " //pop" + segment + " " + indexStr + "\n";
     result += "D=A\n";
     result += "@" + indexStr + "\n";
     result += "A=D+A\n";
     result += "D=M\n";
   } else if (segment == "argument" || segment == "this" || segment == "that" ||
              segment == "local") {
-    result += "@" + segmentStr + "\n";
+    result += "@" + segmentStr + " //pop" + segment + " " + indexStr + "\n";
     result += "D=M\n";
     result += "@" + indexStr + "\n";
     result += "A=D+A\n";
@@ -57,11 +57,11 @@ string VMTranslator::vm_pop(string segment, int offset) {
     result += "cannot pop to constant";
     return result;
   } else if (segment == "temp" || segment == "pointer" || segment == "static") {
-    result += "@" + segmentStr + "\n";
+    result += "@" + segmentStr + " //pop" + segment + " " + indexStr + "\n";
     result += "D=A\n";
   } else if (segment == "argument" || segment == "local" || segment == "this" ||
              segment == "that") {
-    result += "@" + segmentStr + "\n";
+    result += "@" + segmentStr + " //pop" + segment + " " + indexStr + "\n";
     result += "D=M\n";
   }
   result += "@" + indexStr + "\n";
@@ -72,7 +72,7 @@ string VMTranslator::vm_pop(string segment, int offset) {
 /** Generate Hack Assembly code for a VM add operation */
 string VMTranslator::vm_add() {
   string result;
-  result += "@SP\n";
+  result += "@SP //add\n";
   result += "AM=M-1\n";
   result += "D=M\n";
   result += "A=A-1\n";
@@ -83,7 +83,7 @@ string VMTranslator::vm_add() {
 /** Generate Hack Assembly code for a VM sub operation */
 string VMTranslator::vm_sub() {
   string result;
-  result += "@SP\n";
+  result += "@SP //sub\n";
   result += "AM=M-1\n";
   result += "D=M\n";
   result += "A=A-1\n";
@@ -94,7 +94,7 @@ string VMTranslator::vm_sub() {
 /** Generate Hack Assembly code for a VM neg operation */
 string VMTranslator::vm_neg() {
   string result;
-  result += "@SP\n";
+  result += "@SP //neg\n";
   result += "A=M-1\n";
   result += "M=-M\n";
   return result;
@@ -103,7 +103,7 @@ string VMTranslator::vm_neg() {
 /** Generate Hack Assembly code for a VM eq operation */
 string VMTranslator::vm_eq() {
   string result;
-  result += "@SP\n";
+  result += "@SP //eq\n";
   result += "AM=M-1\n";
   result += "D=M\n";
   result += "A=A-1\n";
@@ -123,7 +123,26 @@ string VMTranslator::vm_eq() {
 }
 
 /** Generate Hack Assembly code for a VM gt operation */
-string VMTranslator::vm_gt() { return ""; }
+string VMTranslator::vm_gt() {
+  string result;
+  result += "@SP //eq\n";
+  result += "AM=M-1\n";
+  result += "D=M\n";
+  result += "A=A-1\n";
+  result += "D=M-D\n";
+  result += "@GT\n";
+  result += "D;JGT\n";
+  result += "D=0\n";
+  result += "@NOTGT\n";
+  result += "0;JMP\n";
+  result += "(GT)\n";
+  result += "D=-1\n";
+  result += "(NOTGT)\n";
+  result += "@SP\n";
+  result += "A=M-1\n";
+  result += "M=D\n";
+  return result;
+}
 
 /** Generate Hack Assembly code for a VM lt operation */
 string VMTranslator::vm_lt() { return ""; }
