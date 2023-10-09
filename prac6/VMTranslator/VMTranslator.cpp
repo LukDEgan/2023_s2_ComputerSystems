@@ -28,7 +28,7 @@ string VMTranslator::vm_push(string segment, int offset) {
     result += "D=A\n";
   } else if (segment == "static" || segment == "temp" || segment == "pointer") {
     result += "@" + segmentStr + "\n";
-    result += "D=M\n";
+    result += "D=A\n";
     result += "@" + indexStr + "\n";
     result += "A=D+A\n";
     result += "D=M\n";
@@ -44,7 +44,7 @@ string VMTranslator::vm_push(string segment, int offset) {
   result += "A=M\n";
   result += "M=D\n";
   result += "@SP\n";
-  result += "@M=M+1";
+  result += "@AM=M+1";
   return result;
 }
 
