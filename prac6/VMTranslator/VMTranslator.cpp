@@ -70,10 +70,26 @@ string VMTranslator::vm_pop(string segment, int offset) {
 }
 
 /** Generate Hack Assembly code for a VM add operation */
-string VMTranslator::vm_add() { return ""; }
+string VMTranslator::vm_add() {
+  string result;
+  result += "@SP\n";
+  result += "AM=M-1\n";
+  result += "D=M\n";
+  result += "A=A-1\n";
+  result += "M=D+M\n";
+  return result;
+}
 
 /** Generate Hack Assembly code for a VM sub operation */
-string VMTranslator::vm_sub() { return ""; }
+string VMTranslator::vm_sub() {
+  string result;
+  result += "@SP\n";
+  result += "AM=M-1\n";
+  result += "D=M\n";
+  result += "A=A-1\n";
+  result += "M=M-D\n";
+  return result;
+}
 
 /** Generate Hack Assembly code for a VM neg operation */
 string VMTranslator::vm_neg() { return ""; }
