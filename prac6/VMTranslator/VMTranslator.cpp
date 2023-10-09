@@ -37,7 +37,7 @@ string VMTranslator::vm_push(string segment, int offset) {
   if (segment == "arguement" || segment == "this" || segment == "that" ||
       segment == "local") {
     result += "@" + segmentStr + "\n";
-    result += "D=A\n";
+    result += "D=M\n";
     result += "@" + indexStr + "\n";
     result += "A=D+A\n";
     result += "D=M\n";
@@ -125,7 +125,7 @@ string VMTranslator::SegmentTranslator(string segment, int offset) {
   if (segment == "argument") return "ARG";
   if (segment == "this") return "THIS";
   if (segment == "that") return "THAT";
-  if (segment == "temp") return "R" + to_string(offset + 5);
-  if (segment == "pointer") return "R" + to_string(offset + 3);
+  if (segment == "temp") return "R5";
+  if (segment == "pointer") return "R3";
   return "error";
 }
