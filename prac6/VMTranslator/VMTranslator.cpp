@@ -108,7 +108,7 @@ string VMTranslator::vm_eq() {
   result += "D=M\n";
   result += "A=A-1\n";
   result += "D=M-D\n";
-  result += "@true";
+  result += "@true\n";
   result += "D;JEQ\n";
   result += "D=0\n";
   result += "@false\n";
