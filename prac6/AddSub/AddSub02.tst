@@ -20,6 +20,7 @@ set RAM[16] 32,  // static 0
 set RAM[17] 2,  // static 1
 set RAM[18] 3,  // static 2
 
+// testing for mixed integers
 set local[0] 0,  // local 0
 set local[1] -4917,  // local 1
 set local[2] 30,  // local 2

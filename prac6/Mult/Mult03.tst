@@ -16,6 +16,8 @@ set argument 400,  // base address of the argument segment
 set this 3000,     // base address of the this segment
 set that 3010,     // base address of the that segment
 
+
+//testing large inputs for run time and optimisation
 set RAM[16] 128,   // static 0
 set RAM[17] 192,  // static 1
 set RAM[18] 0,   // static 2
