@@ -248,7 +248,61 @@ string VMTranslator::vm_function(string function_name, int n_vars) {
 }
 
 /** Generate Hack Assembly code for a VM call operation */
-string VMTranslator::vm_call(string function_name, int n_args) { return ""; }
+string VMTranslator::vm_call(string function_name, int n_args) {
+  string result;
+  // return address
+  result += "@return\n";
+  result += "D=A\n";
+  result += "@SP\n";
+  result += "AM=M+1\n";
+  result += "A=A-1\n";
+  result += "M=D\n";
+  // LCL
+  result += "@LCL\n";
+  result += "D=A\n";
+  result += "@SP\n";
+  result += "AM=M+1\n";
+  result += "A=A-1\n";
+  result += "M=D\n";
+  // ARG
+  result += "@ARG\n";
+  result += "D=A\n";
+  result += "@SP\n";
+  result += "AM=M+1\n";
+  result += "A=A-1\n";
+  result += "M=D\n";
+  // THIS
+  result += "@THIS\n";
+  result += "D=A\n";
+  result += "@SP\n";
+  result += "AM=M+1\n";
+  result += "A=A-1\n";
+  result += "M=D\n";
+  // THAT
+  result += "@THAT\n";
+  result += "D=A\n";
+  result += "@SP\n";
+  result += "AM=M+1\n";
+  result += "A=A-1\n";
+  result += "M=D\n";
+  // REPOSITION OF ARG
+  result += "@SP\n";
+  result += "D=M\n";
+  result += "@" + to_string(n_args) + "\n";
+  result += "D=D-A\n";
+  result += "@5\n";
+  result += "D=D-A\n";
+  result += "@ARG\n";
+  result += "M=D\n";
+  // REPOSITION OF LCL
+  result += "@SP\n";
+  result += "D=M\n";
+  result += "@LCL\n";
+  result += "M=D\n";
+  vm_goto("function");
+  vm_label("return");
+  return result;
+}
 
 /** Generate Hack Assembly code for a VM return operation */
 string VMTranslator::vm_return() { return ""; }
