@@ -305,7 +305,66 @@ string VMTranslator::vm_call(string function_name, int n_args) {
 }
 
 /** Generate Hack Assembly code for a VM return operation */
-string VMTranslator::vm_return() { return ""; }
+string VMTranslator::vm_return() {
+  string result;
+  result += "@LCL // return \n";
+  result += "D=M\n";
+  result += "@R14\n";  // endframe
+  result += "M=D\n";
+  result += "@5\n";
+  result += "A=D-A\n";
+  result += "@R15\n";  // returnaddr
+  result += "M=D\n";
+
+  result += "@SP\n";
+  result += "AM=M-1\n";
+  result += "D=M\n";
+  result += "@ARG\n";
+  result += "A=M\n";
+  result += "M=D\n";
+
+  result += "@ARG\n";
+  result += "D=M+1\n";
+  result += "@SP\n";
+  result += "M=D\n";
+  // THAT
+  result += "@R14\n";
+  result += "D=M\n";
+  result += "A=D-1\n";
+  result += "D=M\n";
+  result += "@THAT\n";
+  result += "M=D\n";
+  // THIS
+  result += "@R14\n";
+  result += "D=M\n";
+  result += "@2\n";
+  result += "A=D-A\n";
+  result += "D=M\n";
+  result += "@THIS\n";
+  result += "M=D\n";
+  // ARG
+  result += "@R14\n";
+  result += "D=M\n";
+  result += "@3\n";
+  result += "A=D-A\n";
+  result += "D=M\n";
+  result += "@ARG\n";
+  result += "M=D\n";
+  // LCL
+  result += "@R14\n";
+  result += "D=M\n";
+  result += "@4\n";
+  result += "A=D-A\n";
+  result += "D=M\n";
+  result += "@LCL\n";
+  result += "M=D\n";
+
+  result += "@R15\n";
+  result += "A=M\n";
+  result += "0;JMP\n";
+
+  return result;
+}
 
 string VMTranslator::SegmentTranslator(string segment, int offset) {
   if (segment == "static") return "16";
