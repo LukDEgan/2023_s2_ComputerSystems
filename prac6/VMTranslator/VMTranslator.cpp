@@ -237,7 +237,7 @@ string VMTranslator::vm_if(string label) {
 string VMTranslator::vm_function(string function_name, int n_vars) {
   string result;
 
-  result += "(Main." + function_name + "_" + to_string(label_counter) +
+  result += "(" + function_name + "_" + to_string(label_counter) +
             ") // function " + function_name + " " + to_string(n_vars) + "\n";
   for (int i = n_vars; i > 0; i--) {
     result += "@SP\n";
@@ -253,7 +253,7 @@ string VMTranslator::vm_call(string function_name, int n_args) {
   string result;
   label_counter++;
   // return address
-  result += "@Main." + function_name + "_return_" + to_string(label_counter) +
+  result += "@" + function_name + "_return_" + to_string(label_counter) +
             "// call " + function_name + " " + to_string(n_args) + "\n";
   result += "D=A\n";
   result += "@SP\n";
@@ -262,28 +262,28 @@ string VMTranslator::vm_call(string function_name, int n_args) {
   result += "M=D\n";
   // LCL
   result += "@LCL\n";
-  result += "D=A\n";
+  result += "D=M\n";
   result += "@SP\n";
   result += "AM=M+1\n";
   result += "A=A-1\n";
   result += "M=D\n";
   // ARG
   result += "@ARG\n";
-  result += "D=A\n";
+  result += "D=M\n";
   result += "@SP\n";
   result += "AM=M+1\n";
   result += "A=A-1\n";
   result += "M=D\n";
   // THIS
   result += "@THIS\n";
-  result += "D=A\n";
+  result += "D=M\n";
   result += "@SP\n";
   result += "AM=M+1\n";
   result += "A=A-1\n";
   result += "M=D\n";
   // THAT
   result += "@THAT\n";
-  result += "D=A\n";
+  result += "D=M\n";
   result += "@SP\n";
   result += "AM=M+1\n";
   result += "A=A-1\n";
