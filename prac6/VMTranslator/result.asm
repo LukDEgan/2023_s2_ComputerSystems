@@ -58,20 +58,24 @@ M=D
 0;JMP
 (TranslatorTest00.add_return_1) // label TranslatorTest00.add_return_1
 
+@LCL //poplocal 0
+D=M
+@0
+D=D+A
+@R13
+M=D
+@SP
+AM=M-1
+D=M
+@R13
+A=M
+M=D
 (END) // label END
 
 @END // goto END
 0;JMP
 
-(TranslatorTest00.add_1) // function TranslatorTest00.add 2
-@SP
-AM=M+1
-A=A-1
-M=0
-@SP
-AM=M+1
-A=A-1
-M=0
+(TranslatorTest00.add_1) // function TranslatorTest00.add 0
 
 @ARG //pushargument 0
 D=M
@@ -103,6 +107,8 @@ M=D+M
 D=M
 @R13
 M=D
+@R13
+D=M
 @5
 A=D-A
 @R14
@@ -147,3 +153,4 @@ M=D
 @R14
 A=M
 0;JMP
+

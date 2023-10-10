@@ -3,10 +3,11 @@
 push constant 1
 push constant 3
 call TranslatorTest00.add 2
+pop local 0
 label END
 goto END
 
-function TranslatorTest00.add 2
+function TranslatorTest00.add 0
 push argument 0
 push argument 1
 add

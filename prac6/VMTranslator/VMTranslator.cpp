@@ -319,6 +319,7 @@ string VMTranslator::vm_return() {
   result += "D=M\n";
   result += "@5\n";
   result += "A=D-A\n";
+  result += "D=M\n";
   result += "@R14\n";  // returnaddr
   result += "M=D\n";
 
