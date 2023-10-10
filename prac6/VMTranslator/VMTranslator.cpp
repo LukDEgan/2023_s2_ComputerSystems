@@ -299,7 +299,7 @@ string VMTranslator::vm_call(string function_name, int n_args) {
   result += "D=M\n";
   result += "@LCL\n";
   result += "M=D\n";
-  result += vm_goto("function");
+  result += vm_goto(function_name);
   result += vm_label("return");
   return result;
 }
