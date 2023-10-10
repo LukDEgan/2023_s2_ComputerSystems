@@ -2,11 +2,11 @@
 
 push constant 1
 push constant 3
-call add2 2
+call TranslatorTest00.add 2
 label END
 goto END
 
-function add2 2
+function TranslatorTest00.add 2
 push argument 0
 push argument 1
 add
