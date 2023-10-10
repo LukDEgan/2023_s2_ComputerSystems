@@ -313,11 +313,11 @@ string VMTranslator::vm_return() {
   string result;
   result += "@LCL // return \n";
   result += "D=M\n";
-  result += "@R14\n";  // endframe
+  result += "@R13\n";  // endframe
   result += "M=D\n";
   result += "@5\n";
   result += "A=D-A\n";
-  result += "@R15\n";  // returnaddr
+  result += "@R14\n";  // returnaddr
   result += "M=D\n";
 
   result += "@SP\n";
@@ -332,14 +332,14 @@ string VMTranslator::vm_return() {
   result += "@SP\n";
   result += "M=D\n";
   // THAT
-  result += "@R14\n";
+  result += "@R13\n";
   result += "D=M\n";
   result += "A=D-1\n";
   result += "D=M\n";
   result += "@THAT\n";
   result += "M=D\n";
   // THIS
-  result += "@R14\n";
+  result += "@R13\n";
   result += "D=M\n";
   result += "@2\n";
   result += "A=D-A\n";
@@ -347,7 +347,7 @@ string VMTranslator::vm_return() {
   result += "@THIS\n";
   result += "M=D\n";
   // ARG
-  result += "@R14\n";
+  result += "@R13\n";
   result += "D=M\n";
   result += "@3\n";
   result += "A=D-A\n";
@@ -355,7 +355,7 @@ string VMTranslator::vm_return() {
   result += "@ARG\n";
   result += "M=D\n";
   // LCL
-  result += "@R14\n";
+  result += "@R13\n";
   result += "D=M\n";
   result += "@4\n";
   result += "A=D-A\n";
@@ -363,7 +363,7 @@ string VMTranslator::vm_return() {
   result += "@LCL\n";
   result += "M=D\n";
 
-  result += "@R15\n";
+  result += "@R14\n";
   result += "A=M\n";
   result += "0;JMP\n";
 
