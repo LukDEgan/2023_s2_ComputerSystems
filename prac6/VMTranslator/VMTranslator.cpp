@@ -239,7 +239,7 @@ string VMTranslator::vm_function(string function_name, int n_vars) {
 
   result += "(" + function_name + "_" + to_string(label_counter) +
             ") // function " + function_name + " " + to_string(n_vars) + "\n";
-  for (int i = n_vars; i > 0; i--) {
+  for (int i = 0; i < n_vars; i++) {
     result += "@SP\n";
     result += "AM=M+1\n";
     result += "A=A-1\n";
@@ -291,9 +291,9 @@ string VMTranslator::vm_call(string function_name, int n_args) {
   // REPOSITION OF ARG
   result += "@SP\n";
   result += "D=M\n";
-  result += "@5\n";
-  result += "D=D-A\n";
   result += "@" + to_string(n_args) + "\n";
+  result += "D=D-A\n";
+  result += "@5\n";
   result += "D=D-A\n";
   result += "@ARG\n";
   result += "M=D\n";
@@ -315,6 +315,8 @@ string VMTranslator::vm_return() {
   result += "D=M\n";
   result += "@R13\n";  // endframe
   result += "M=D\n";
+  result += "@R13\n";  // endframe
+  result += "D=M\n";
   result += "@5\n";
   result += "A=D-A\n";
   result += "@R14\n";  // returnaddr

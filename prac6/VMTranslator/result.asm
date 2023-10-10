@@ -12,32 +12,32 @@ A=M
 M=D
 @SP
 M=M+1
-@add2_return_1// call add2 2
+@TranslatorTest00.add_return_1// call TranslatorTest00.add 2
 D=A
 @SP
 AM=M+1
 A=A-1
 M=D
 @LCL
-D=A
+D=M
 @SP
 AM=M+1
 A=A-1
 M=D
 @ARG
-D=A
+D=M
 @SP
 AM=M+1
 A=A-1
 M=D
 @THIS
-D=A
+D=M
 @SP
 AM=M+1
 A=A-1
 M=D
 @THAT
-D=A
+D=M
 @SP
 AM=M+1
 A=A-1
@@ -54,16 +54,16 @@ M=D
 D=M
 @LCL
 M=D
-@add2_1 // goto add2_1
+@TranslatorTest00.add_1 // goto TranslatorTest00.add_1
 0;JMP
-(add2_return_1) // label add2_return_1
+(TranslatorTest00.add_return_1) // label TranslatorTest00.add_return_1
 
 (END) // label END
 
 @END // goto END
 0;JMP
 
-(add2_1) // function add2 2
+(TranslatorTest00.add_1) // function TranslatorTest00.add 2
 @SP
 AM=M+1
 A=A-1
@@ -101,11 +101,11 @@ M=D+M
 
 @LCL // return 
 D=M
-@R14
+@R13
 M=D
 @5
 A=D-A
-@R15
+@R14
 M=D
 @SP
 AM=M-1
@@ -117,33 +117,33 @@ M=D
 D=M+1
 @SP
 M=D
-@R14
+@R13
 D=M
 A=D-1
 D=M
 @THAT
 M=D
-@R14
+@R13
 D=M
 @2
 A=D-A
 D=M
 @THIS
 M=D
-@R14
+@R13
 D=M
 @3
 A=D-A
 D=M
 @ARG
 M=D
-@R14
+@R13
 D=M
 @4
 A=D-A
 D=M
 @LCL
 M=D
-@R15
+@R14
 A=M
 0;JMP
