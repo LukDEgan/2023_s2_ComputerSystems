@@ -253,7 +253,8 @@ string VMTranslator::vm_call(string function_name, int n_args) {
   string result;
   label_counter++;
   // return address
-  result += "@return // call " + function_name + " " + to_string(n_args) + "\n";
+  result += "@" + function_name + "_return_" + to_string(label_counter) +
+            "// call " + function_name + " " + to_string(n_args) + "\n";
   result += "D=A\n";
   result += "@SP\n";
   result += "AM=M+1\n";
@@ -301,8 +302,9 @@ string VMTranslator::vm_call(string function_name, int n_args) {
   result += "D=M\n";
   result += "@LCL\n";
   result += "M=D\n";
+
   result += vm_goto(function_name + "_" + to_string(label_counter));
-  result += vm_label("return");
+  result += vm_label(function_name + "_return_" + to_string(label_counter));
   return result;
 }
 
