@@ -291,9 +291,9 @@ string VMTranslator::vm_call(string function_name, int n_args) {
   // REPOSITION OF ARG
   result += "@SP\n";
   result += "D=M\n";
-  result += "@" + to_string(n_args) + "\n";
-  result += "D=D-A\n";
   result += "@5\n";
+  result += "D=D-A\n";
+  result += "@" + to_string(n_args) + "\n";
   result += "D=D-A\n";
   result += "@ARG\n";
   result += "M=D\n";
