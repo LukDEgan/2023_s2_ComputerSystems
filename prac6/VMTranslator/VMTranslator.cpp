@@ -236,7 +236,7 @@ string VMTranslator::vm_if(string label) {
 /** Generate Hack Assembly code for a VM function operation */
 string VMTranslator::vm_function(string function_name, int n_vars) {
   string result;
-  result += "(" + function_name + ") // function " + function_name +
+  result += "(" + function_name + ") // function " + function_name + " " +
             to_string(n_vars) + "\n";
   for (int i = n_vars; i > 0; i--) {
     result += "@SP\n";
@@ -251,7 +251,7 @@ string VMTranslator::vm_function(string function_name, int n_vars) {
 string VMTranslator::vm_call(string function_name, int n_args) {
   string result;
   // return address
-  result += "@return\n";
+  result += "@return // call " + function_name + " " + to_string(n_args) + "\n";
   result += "D=A\n";
   result += "@SP\n";
   result += "AM=M+1\n";
@@ -299,8 +299,8 @@ string VMTranslator::vm_call(string function_name, int n_args) {
   result += "D=M\n";
   result += "@LCL\n";
   result += "M=D\n";
-  vm_goto("function");
-  vm_label("return");
+  result += vm_goto("function");
+  result += vm_label("return");
   return result;
 }
 

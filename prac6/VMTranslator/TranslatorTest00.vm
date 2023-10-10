@@ -1,5 +1,14 @@
 // A simple example VM Translator test case
-push static 1
-push local 2
+
+push constant 1
+call test 1
+push constant 1
+push constant 1
 add
-pop static 0
+
+
+function test 2
+push constant 0
+push constant 1
+add
+return
