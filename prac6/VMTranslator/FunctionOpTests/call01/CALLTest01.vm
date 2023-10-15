@@ -1,0 +1,13 @@
+// test 01 for push operation in vm translator.
+// testing basic function
+
+call FUNCTIONTest01.basic 0
+pop static 0
+label END
+goto END
+
+function FUNCTIONTest01.basic 0
+push constant 1
+push constant 1
+add 
+return

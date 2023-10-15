@@ -1,0 +1,18 @@
+// test 01 for push operation in vm translator.
+// testing function call inside function
+call FUNCTIONTest02.first 0
+pop static 0
+label END
+goto END
+
+function FUNCTIONTest02.first 0
+push constant 1
+push constant 1
+call FUNCTIONTest02.second 2
+return
+
+function FUNCTIONTest02.second 2
+push argument 0
+push argument 1
+add
+return 
