@@ -1,0 +1,13 @@
+// test 01 for push operation in vm translator.
+// testing positive if
+push constant 1
+if-goto SKIP
+push constant 1
+neg
+pop static 0
+goto END
+label SKIP 
+push constant 1
+pop static 0
+label END
+goto END

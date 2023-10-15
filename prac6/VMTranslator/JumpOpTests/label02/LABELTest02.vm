@@ -1,0 +1,10 @@
+// test 01 for push operation in vm translator.
+// testing labels of the same name
+goto test
+label test
+push constant 1
+goto END
+label test
+push constant 2
+label END
+goto END

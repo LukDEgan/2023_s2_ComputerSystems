@@ -1,0 +1,11 @@
+// test 01 for push operation in vm translator.
+// testing goto with repeatings labels
+goto test
+label test
+push constant 1
+goto END
+label test
+push constant 2
+pop static 0
+label END
+goto END
