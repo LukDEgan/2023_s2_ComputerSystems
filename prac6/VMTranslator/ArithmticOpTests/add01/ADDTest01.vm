@@ -1,0 +1,14 @@
+// test 01 for push operation in vm translator.
+// testing add calls in succession and normally
+push constant 3
+push constant 3
+add
+push constant 1
+push constant 2
+push constant 3
+add
+add
+add
+pop static 0
+label END
+goto END
