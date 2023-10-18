@@ -1,7 +1,0 @@
-// test 01 for push operation in vm translator.
-// creating labels with different cases and numbers/symbols
-label test
-label TEST2
-label TeST_3
-label END
-goto END
