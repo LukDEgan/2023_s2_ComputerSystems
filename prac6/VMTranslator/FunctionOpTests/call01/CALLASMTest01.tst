@@ -1,9 +1,9 @@
 // Example Test file; compares with the results from generated from the VM test file.
 // Run using CPUEmulator
 
-load FUNCTIONTest01.asm,
-output-file FUNCTIONASMTest01.out,
-compare-to FUNCTIONTest01.out,
+load CALLTest01.asm,
+output-file CALLASMTest01.out,
+compare-to CALLTest01.out,
 output-list RAM[0]%D1.6.1 RAM[1]%D1.6.1 RAM[2]%D1.8.1 RAM[3]%D1.6.1 RAM[4]%D1.6.1
             RAM[16]%D1.6.1 RAM[17]%D1.6.1 RAM[18]%D1.6.1
             RAM[300]%D1.8.1 RAM[301]%D1.8.1 RAM[302]%D1.8.1

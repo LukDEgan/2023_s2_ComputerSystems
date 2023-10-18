@@ -2,8 +2,8 @@
 // Follows the Test Scripting Language format described in 
 // Appendix B of the book "The Elements of Computing Systems"
 
-load FUNCTIONTest01.vm,
-output-file FUNCTIONTest01.out,
+load CALLTest01.vm,
+output-file CALLTest01.out,
 output-list RAM[0]%D1.6.1 RAM[1]%D1.6.1 RAM[2]%D1.8.1 RAM[3]%D1.6.1 RAM[4]%D1.6.1
             RAM[16]%D1.6.1 RAM[17]%D1.6.1 RAM[18]%D1.6.1
             RAM[300]%D1.8.1 RAM[301]%D1.8.1 RAM[302]%D1.8.1
