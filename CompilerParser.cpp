@@ -17,7 +17,7 @@ ParseTree* CompilerParser::compileProgram() {
     ParseTree* classNode = compileClass();
     programNode->addChild(classNode);
   }
-  if (current() == NULL) {
+  if (!current()) {
     return programNode;
   } else {
     throw ParseException();
