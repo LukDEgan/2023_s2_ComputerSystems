@@ -11,10 +11,10 @@ int main(int argc, char* argv[]) {
    *     class MyClass {
    *          static int a, b;
    *          field char name;
-   *          method int myFunc (int param1, char param2) {
-   *               var int a, b;
-   *               var boolean flag;
-   *               let a = 1;
+   *          method int add (int param1, int param2) {
+   *               var int a;
+   *               let a = param1 + param2;
+   *               return a;
    *          }
    *     }
    */
@@ -37,28 +37,28 @@ int main(int argc, char* argv[]) {
 
   tokens.push_back(new Token("keyword", "method"));
   tokens.push_back(new Token("keyword", "int"));
-  tokens.push_back(new Token("identifier", "myFunc"));
+  tokens.push_back(new Token("identifier", "add"));
   tokens.push_back(new Token("symbol", "("));
   tokens.push_back(new Token("keyword", "int"));
   tokens.push_back(new Token("identifier", "param1"));
   tokens.push_back(new Token("symbol", ","));
-  tokens.push_back(new Token("keyword", "char"));
+  tokens.push_back(new Token("keyword", "int"));
   tokens.push_back(new Token("identifier", "param2"));
   tokens.push_back(new Token("symbol", ")"));
   tokens.push_back(new Token("symbol", "{"));
   tokens.push_back(new Token("keyword", "var"));
   tokens.push_back(new Token("keyword", "int"));
   tokens.push_back(new Token("identifier", "a"));
-  tokens.push_back(new Token("symbol", ","));
-  tokens.push_back(new Token("identifier", "b"));
-  tokens.push_back(new Token("symbol", ";"));
-  tokens.push_back(new Token("keyword", "var"));
-  tokens.push_back(new Token("keyword", "boolean"));
-  tokens.push_back(new Token("identifier", "flag"));
   tokens.push_back(new Token("symbol", ";"));
   tokens.push_back(new Token("keyword", "let"));
   tokens.push_back(new Token("identifier", "a"));
   tokens.push_back(new Token("symbol", "="));
+  tokens.push_back(new Token("identifier", "param1"));
+  tokens.push_back(new Token("symbol", "+"));
+  tokens.push_back(new Token("identifier", "param2"));
+  tokens.push_back(new Token("symbol", ";"));
+  tokens.push_back(new Token("keyword", "return"));
+  tokens.push_back(new Token("identifier", "a"));
   tokens.push_back(new Token("symbol", ";"));
   tokens.push_back(new Token("symbol", "}"));
 

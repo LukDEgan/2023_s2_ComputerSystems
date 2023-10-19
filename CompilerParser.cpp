@@ -217,7 +217,7 @@ ParseTree* CompilerParser::compileLet() {
   letStatement->addChild((ParseTree*)mustBe("keyword", "let"));
   letStatement->addChild(
       (ParseTree*)mustBe("identifier", current()->getValue()));
-  while (have("symbol", "[]")) {
+  while (have("symbol", "[")) {
     letStatement->addChild((ParseTree*)mustBe("symbol", "["));
     letStatement->addChild(compileExpression());
     letStatement->addChild((ParseTree*)mustBe("symbol", "]"));
