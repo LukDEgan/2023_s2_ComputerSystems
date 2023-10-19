@@ -322,7 +322,9 @@ ParseTree* CompilerParser::compileExpression() {
 
   while (isOperator(current()->getValue())) {
     expression->addChild((ParseTree*)mustBe("symbol", current()->getValue()));
-    expression->addChild(compileTerm());
+    if (current() != nullptr) {
+      expression->addChild(compileTerm());
+    }
   }
 
   return expression;
