@@ -398,7 +398,7 @@ bool CompilerParser::isUnaryOp(std::string value) {
 bool CompilerParser::isOperator(std::string value) {
   return value == "+" || value == "-" || value == "*" || value == "/" ||
          value == "&" || value == "|" || value == "<" || value == ">" ||
-         value == "=";
+         value == "=" || value == "~";
 }
 ParseTree* CompilerParser::compileType() {
   // Parse variable type
