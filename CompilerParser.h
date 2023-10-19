@@ -29,6 +29,7 @@ class CompilerParser {
   ParseTree* compileExpression();
   ParseTree* compileTerm();
   ParseTree* compileExpressionList();
+  ParseTree* compileType();
 
   void next();
   Token* current();

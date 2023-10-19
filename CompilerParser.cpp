@@ -34,7 +34,7 @@ ParseTree* CompilerParser::compileProgram() {
 ParseTree* CompilerParser::compileClass() {
   ParseTree* classNode = new ParseTree("class", "");
   mustBe("keyword", "class");
-  std::cout << current()->getValue();
+
   Token* className = mustBe("identifier", current()->getValue());
 
   classNode->addChild(new ParseTree("className", className->getValue()));
@@ -62,13 +62,43 @@ ParseTree* CompilerParser::compileClassVarDec() {
   while (have("keyword", "field") || have("keyword", "static")) {
     if (have("keyword", "static")) {
       mustBe("keyword", "static");
+      classVarDec->addChild(new ParseTree("keyword", "static"));
+
     } else {
       mustBe("keyword", "field");
+      classVarDec->addChild(new ParseTree("keyword", "field"));
+    }
+    ParseTree* typeNode = compileType();
+    classVarDec->addChild(typeNode);
+    next();
+
+    while (true) {
+      ParseTree* varName = (ParseTree*)current();
+      classVarDec->addChild(varName);
+      next();
+      if (have("symbol", ",")) {
+        mustBe("symbol", ",");
+      } else {
+        break;
+      }
     }
   }
-  return NULL;
-}
 
+  std::cout << current()->getValue() << std::endl;
+  mustBe("symbol", ";");
+
+  return classVarDec;
+}
+ParseTree* CompilerParser::compileType() {
+  // Parse variable type
+  if (have("keyword", "int") || have("keyword", "char") ||
+      have("keyword", "boolean")) {
+    return new ParseTree("keyword", current()->getValue());
+  } else {
+    // Assume it's a className (you might need additional logic for this part)
+    return new ParseTree("className", current()->getValue());
+  }
+}
 /**
  * Generates a parse tree for a method, function, or constructor
  * @return a ParseTree
