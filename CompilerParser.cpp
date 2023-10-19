@@ -68,8 +68,7 @@ ParseTree* CompilerParser::compileClassVarDec() {
       mustBe("keyword", "field");
       classVarDec->addChild(new ParseTree("keyword", "field"));
     }
-    ParseTree* typeNode = compileType();
-    classVarDec->addChild(typeNode);
+    classVarDec->addChild(compileType());
     next();
 
     while (true) {
@@ -94,8 +93,8 @@ ParseTree* CompilerParser::compileClassVarDec() {
  */
 ParseTree* CompilerParser::compileSubroutine() {
   ParseTree* subRoutine = new ParseTree("subroutine", "");
-  while (have("keyword", "constructor") || have("keyword", "function") ||
-         have("keyword", "method")) {
+  if (have("keyword", "constructor") || have("keyword", "function") ||
+      have("keyword", "method")) {
     if (have("keyword", "constructor")) {
       mustBe("keyword", "constructor");
       subRoutine->addChild(new ParseTree("keyword", "constructor"));
@@ -407,7 +406,7 @@ ParseTree* CompilerParser::compileType() {
     return new ParseTree("keyword", current()->getValue());
   } else {
     // Assume it's a className (you might need additional logic for this part)
-    return new ParseTree("keyword", current()->getValue());
+    return new ParseTree("identifier", current()->getValue());
   }
 }
 //---------------------------------------------------------------------------------------------------------//

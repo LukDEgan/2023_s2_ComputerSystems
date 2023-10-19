@@ -16,6 +16,15 @@ int main(int argc, char* argv[]) {
    *               let a = param1 + param2;
    *               return a;
    *          }
+   *          method int power (int param1, int param2) {
+   *               var int a;
+   *               while ( param2 > 0){
+   *               let a = a * param1;
+   *               let param2 = param2 - 1;
+   *               }
+   *               return a;
+   *          }
+   *
    *     }
    */
   list<Token*> tokens;
@@ -57,6 +66,48 @@ int main(int argc, char* argv[]) {
   tokens.push_back(new Token("symbol", "+"));
   tokens.push_back(new Token("identifier", "param2"));
   tokens.push_back(new Token("symbol", ";"));
+  tokens.push_back(new Token("keyword", "return"));
+  tokens.push_back(new Token("identifier", "a"));
+  tokens.push_back(new Token("symbol", ";"));
+  tokens.push_back(new Token("symbol", "}"));
+
+  tokens.push_back(new Token("keyword", "method"));
+  tokens.push_back(new Token("keyword", "int"));
+  tokens.push_back(new Token("identifier", "power"));
+  tokens.push_back(new Token("symbol", "("));
+  tokens.push_back(new Token("keyword", "int"));
+  tokens.push_back(new Token("identifier", "param1"));
+  tokens.push_back(new Token("symbol", ","));
+  tokens.push_back(new Token("keyword", "int"));
+  tokens.push_back(new Token("identifier", "param2"));
+  tokens.push_back(new Token("symbol", ")"));
+  tokens.push_back(new Token("symbol", "{"));
+  tokens.push_back(new Token("keyword", "var"));
+  tokens.push_back(new Token("keyword", "int"));
+  tokens.push_back(new Token("identifier", "a"));
+  tokens.push_back(new Token("symbol", ";"));
+  tokens.push_back(new Token("keyword", "while"));
+  tokens.push_back(new Token("symbol", "("));
+  tokens.push_back(new Token("identifier", "param2"));
+  tokens.push_back(new Token("symbol", ">"));
+  tokens.push_back(new Token("integerConstant", "0"));
+  tokens.push_back(new Token("symbol", ")"));
+  tokens.push_back(new Token("symbol", "{"));
+  tokens.push_back(new Token("keyword", "let"));
+  tokens.push_back(new Token("identifier", "a"));
+  tokens.push_back(new Token("symbol", "="));
+  tokens.push_back(new Token("identifier", "a"));
+  tokens.push_back(new Token("symbol", "*"));
+  tokens.push_back(new Token("identifier", "param1"));
+  tokens.push_back(new Token("symbol", ";"));
+  tokens.push_back(new Token("keyword", "let"));
+  tokens.push_back(new Token("identifier", "param2"));
+  tokens.push_back(new Token("symbol", "="));
+  tokens.push_back(new Token("identifier", "param2"));
+  tokens.push_back(new Token("symbol", "-"));
+  tokens.push_back(new Token("integerConstant", "1"));
+  tokens.push_back(new Token("symbol", ";"));
+  tokens.push_back(new Token("symbol", "}"));
   tokens.push_back(new Token("keyword", "return"));
   tokens.push_back(new Token("identifier", "a"));
   tokens.push_back(new Token("symbol", ";"));
