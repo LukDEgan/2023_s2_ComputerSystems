@@ -33,13 +33,13 @@ ParseTree* CompilerParser::compileProgram() {
  */
 ParseTree* CompilerParser::compileClass() {
   ParseTree* classNode = new ParseTree("class", "");
-  mustBe("keyword", "class");
 
+  classNode->addChild((ParseTree*)mustBe("keyword", "class"));
   Token* className = mustBe("identifier", current()->getValue());
 
-  classNode->addChild(new ParseTree("className", className->getValue()));
+  classNode->addChild((ParseTree*)className);
 
-  mustBe("symbol", "{");
+  classNode->addChild((ParseTree*)mustBe("symbol", "{"));
   while (have("keyword", "static") || have("keyword", "field")) {
     ParseTree* classVarDecNode = compileClassVarDec();
     classNode->addChild(classVarDecNode);
@@ -49,7 +49,7 @@ ParseTree* CompilerParser::compileClass() {
     ParseTree* subroutineNode = compileSubroutine();
     classNode->addChild(subroutineNode);
   }
-  mustBe("symbol", "}");
+  classNode->addChild((ParseTree*)mustBe("symbol", "}"));
   return classNode;
 }
 
@@ -77,49 +77,118 @@ ParseTree* CompilerParser::compileClassVarDec() {
       classVarDec->addChild(varName);
       next();
       if (have("symbol", ",")) {
-        mustBe("symbol", ",");
+        classVarDec->addChild((ParseTree*)mustBe("symbol", ","));
       } else {
         break;
       }
     }
   }
-  mustBe("symbol", ";");
+  classVarDec->addChild((ParseTree*)mustBe("symbol", ";"));
 
   return classVarDec;
 }
 ParseTree* CompilerParser::compileType() {
   // Parse variable type
   if (have("keyword", "int") || have("keyword", "char") ||
-      have("keyword", "boolean")) {
+      have("keyword", "boolean") || have("keyword", "void")) {
     return new ParseTree("keyword", current()->getValue());
   } else {
     // Assume it's a className (you might need additional logic for this part)
-    return new ParseTree("className", current()->getValue());
+    return new ParseTree("keyword", current()->getValue());
   }
 }
 /**
  * Generates a parse tree for a method, function, or constructor
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileSubroutine() { return NULL; }
+ParseTree* CompilerParser::compileSubroutine() {
+  ParseTree* subRoutine = new ParseTree("subroutine", "");
+  while (have("keyword", "constructor") || have("keyword", "function") ||
+         have("keyword", "method")) {
+    if (have("keyword", "constructor")) {
+      mustBe("keyword", "constructor");
+      subRoutine->addChild(new ParseTree("keyword", "constructor"));
+
+    } else if (have("keyword", "function")) {
+      mustBe("keyword", "function");
+      subRoutine->addChild(new ParseTree("keyword", "function"));
+    } else {
+      mustBe("keyword", "method");
+      subRoutine->addChild(new ParseTree("keyword", "method"));
+    }
+    subRoutine->addChild(compileType());
+    next();
+
+    subRoutine->addChild(
+        (ParseTree*)mustBe("identifier", current()->getValue()));
+
+    subRoutine->addChild((ParseTree*)mustBe("symbol", "("));
+    if (!have("symbol", ")")) {
+      ParseTree* paramList = compileParameterList();
+      subRoutine->addChild(paramList);
+    }
+    subRoutine->addChild((ParseTree*)mustBe("symbol", ")"));
+    subRoutine->addChild(compileSubroutineBody());
+  }
+  return subRoutine;
+}
 
 /**
  * Generates a parse tree for a subroutine's parameters
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileParameterList() { return NULL; }
+ParseTree* CompilerParser::compileParameterList() {
+  ParseTree* paramList = new ParseTree("parameterList", "");
+  while (true) {
+    paramList->addChild(compileType());
+    next();
+    paramList->addChild(
+        (ParseTree*)mustBe("identifier", current()->getValue()));
+    if (have("symbol", ",")) {
+      paramList->addChild((ParseTree*)mustBe("symbol", ","));
+    } else {
+      break;
+    }
+  }
+  return paramList;
+}
 
 /**
  * Generates a parse tree for a subroutine's body
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileSubroutineBody() { return NULL; }
+ParseTree* CompilerParser::compileSubroutineBody() {
+  ParseTree* subRoutineBody = new ParseTree("subroutineBody", "");
+  subRoutineBody->addChild((ParseTree*)mustBe("symbol", "{"));
+  while (!have("symbol", "}")) {
+    subRoutineBody->addChild(compileVarDec());
+  }
+  subRoutineBody->addChild((ParseTree*)mustBe("symbol", "}"));
+  return subRoutineBody;
+}
 
 /**
  * Generates a parse tree for a subroutine variable declaration
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileVarDec() { return NULL; }
+ParseTree* CompilerParser::compileVarDec() {
+  ParseTree* varDec = new ParseTree("varDec", "");
+  varDec->addChild((ParseTree*)mustBe("keyword", "var"));
+  ParseTree* varType = compileType();
+  varDec->addChild(varType);
+  next();
+  while (true) {
+    varDec->addChild((ParseTree*)mustBe("identifier", current()->getValue()));
+    if (have("symbol", ",")) {
+      varDec->addChild((ParseTree*)mustBe("symbol", ","));
+    } else {
+      break;
+    }
+  }
+  varDec->addChild((ParseTree*)mustBe("symbol", ";"));
+
+  return varDec;
+}
 
 /**
  * Generates a parse tree for a series of statements
