@@ -11,6 +11,7 @@ class CompilerParser {
  private:
   std::list<Token*> tokens;
 
+ public:
   ParseTree* compileClass();
   ParseTree* compileClassVarDec();
   ParseTree* compileSubroutine();
@@ -33,8 +34,6 @@ class CompilerParser {
   Token* current();
   bool have(std::string expectedType, std::string expectedValue);
   Token* mustBe(std::string expectedType, std::string expectedValue);
-
- public:
   CompilerParser(std::list<Token*> tokens);
   ParseTree* compileProgram();
 };
