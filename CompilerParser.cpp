@@ -87,16 +87,7 @@ ParseTree* CompilerParser::compileClassVarDec() {
 
   return classVarDec;
 }
-ParseTree* CompilerParser::compileType() {
-  // Parse variable type
-  if (have("keyword", "int") || have("keyword", "char") ||
-      have("keyword", "boolean") || have("keyword", "void")) {
-    return new ParseTree("keyword", current()->getValue());
-  } else {
-    // Assume it's a className (you might need additional logic for this part)
-    return new ParseTree("keyword", current()->getValue());
-  }
-}
+
 /**
  * Generates a parse tree for a method, function, or constructor
  * @return a ParseTree
@@ -323,19 +314,98 @@ ParseTree* CompilerParser::compileReturn() {
  * Generates a parse tree for an expression
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileExpression() { return NULL; }
+ParseTree* CompilerParser::compileExpression() {
+  ParseTree* expression = new ParseTree("expression", "");
+  expression->addChild(compileTerm());
+  while (isOperator(current()->getValue())) {
+    expression->addChild((ParseTree*)mustBe("symbol", current()->getValue()));
+    expression->addChild(compileTerm());
+  }
+
+  return expression;
+}
 
 /**
  * Generates a parse tree for an expression term
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileTerm() { return NULL; }
+ParseTree* CompilerParser::compileTerm() {
+  ParseTree* term = new ParseTree("term", "");
+  if (current()->getValue() == "skip") {
+    term->addChild((ParseTree*)mustBe("keyword", "skip"));
+    return term;
+  }
+  if (current()->getType() == "integerConstant" ||
+      current()->getType() == "stringConstant" ||
+      isKeywordConstant(current()->getValue())) {
+    term->addChild((ParseTree*)current());
+    next();
+  } else if (current()->getType() == "identifier") {
+    term->addChild((ParseTree*)mustBe("identifier", current()->getValue()));
+    if (have("symbol", "(")) {
+      term->addChild((ParseTree*)mustBe("symbol", "("));
+      term->addChild(compileExpressionList());
+      term->addChild((ParseTree*)mustBe("symbol", ")"));
+    } else if (have("symbol", ".")) {
+      term->addChild((ParseTree*)mustBe("symbol", "."));
+      term->addChild((ParseTree*)mustBe("identifier", current()->getValue()));
+      term->addChild((ParseTree*)mustBe("symbol", "("));
+      term->addChild(compileExpressionList());
+      term->addChild((ParseTree*)mustBe("symbol", ")"));
+    }
+  } else if (have("symbol", "(")) {
+    term->addChild((ParseTree*)mustBe("symbol", "("));
+    term->addChild(compileExpression());
+    term->addChild((ParseTree*)mustBe("symbol", ")"));
+  } else if (isUnaryOp(current()->getValue())) {
+    term->addChild((ParseTree*)mustBe("symbol", current()->getValue()));
+    term->addChild(compileTerm());
+  }
+
+  return term;
+}
 
 /**
  * Generates a parse tree for an expression list
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileExpressionList() { return NULL; }
+ParseTree* CompilerParser::compileExpressionList() {
+  ParseTree* expressionList = new ParseTree("expressionList", "");
+  if (!have("symbol", ")")) {
+    expressionList->addChild(compileExpression());
+    while (have("symbol", ",")) {
+      expressionList->addChild((ParseTree*)mustBe("symbol", ","));
+      expressionList->addChild(compileExpression());
+    }
+  }
+
+  return expressionList;
+}
+
+//---------------------------------------------------------------------------------------------------------//
+bool CompilerParser::isKeywordConstant(std::string value) {
+  return value == "true" || value == "false" || value == "null" ||
+         value == "this";
+}
+bool CompilerParser::isUnaryOp(std::string value) {
+  return value == "-" || value == "~";
+}
+bool CompilerParser::isOperator(std::string value) {
+  return value == "+" || value == "-" || value == "*" || value == "/" ||
+         value == "&" || value == "|" || value == "<" || value == ">" ||
+         value == "=";
+}
+ParseTree* CompilerParser::compileType() {
+  // Parse variable type
+  if (have("keyword", "int") || have("keyword", "char") ||
+      have("keyword", "boolean") || have("keyword", "void")) {
+    return new ParseTree("keyword", current()->getValue());
+  } else {
+    // Assume it's a className (you might need additional logic for this part)
+    return new ParseTree("keyword", current()->getValue());
+  }
+}
+//---------------------------------------------------------------------------------------------------------//
 
 /**
  * Advance to the next token

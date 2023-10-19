@@ -31,6 +31,10 @@ class CompilerParser {
   ParseTree* compileExpressionList();
   ParseTree* compileType();
 
+  bool isUnaryOp(std::string value);
+  bool isOperator(std::string value);
+  bool isKeywordConstant(std::string value);
+
   void next();
   Token* current();
   bool have(std::string expectedType, std::string expectedValue);
