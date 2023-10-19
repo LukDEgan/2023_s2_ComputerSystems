@@ -59,7 +59,7 @@ ParseTree* CompilerParser::compileClass() {
  */
 ParseTree* CompilerParser::compileClassVarDec() {
   ParseTree* classVarDec = new ParseTree("classVarDec", "");
-  while (have("keyword", "field") || have("keyword", "static")) {
+  if (have("keyword", "field") || have("keyword", "static")) {
     if (have("keyword", "static")) {
       mustBe("keyword", "static");
       classVarDec->addChild(new ParseTree("keyword", "static"));
