@@ -164,7 +164,7 @@ ParseTree* CompilerParser::compileSubroutineBody() {
     if (have("keyword", "var")) {
       subRoutineBody->addChild(compileVarDec());
     } else {
-      subRoutineBody->addChild(compileStatements());
+      break;
     }
   }
   subRoutineBody->addChild((ParseTree*)mustBe("symbol", "}"));
