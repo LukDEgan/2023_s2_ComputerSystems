@@ -1,5 +1,7 @@
 #include "CompilerParser.h"
 
+#include <iostream>
+
 /**
  * Constructor for the CompilerParser
  * @param tokens A linked list of tokens to be parsed
@@ -17,7 +19,7 @@ ParseTree* CompilerParser::compileProgram() {
     ParseTree* classNode = compileClass();
     programNode->addChild(classNode);
   }
-  if (!current()) {
+  if (tokens.empty()) {
     return programNode;
   } else {
     throw ParseException();
@@ -32,9 +34,10 @@ ParseTree* CompilerParser::compileProgram() {
 ParseTree* CompilerParser::compileClass() {
   ParseTree* classNode = new ParseTree("class", "");
   mustBe("keyword", "class");
+  std::cout << current()->getValue();
   Token* className = mustBe("identifier", current()->getValue());
+
   classNode->addChild(new ParseTree("className", className->getValue()));
-  mustBe("identifier", current()->getValue());
 
   mustBe("symbol", "{");
   while (have("keyword", "static") || have("keyword", "field")) {
