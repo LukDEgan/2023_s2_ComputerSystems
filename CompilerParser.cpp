@@ -164,7 +164,7 @@ ParseTree* CompilerParser::compileSubroutineBody() {
     if (have("keyword", "var")) {
       subRoutineBody->addChild(compileVarDec());
     } else {
-      break;
+      subRoutineBody->addChild(compileStatements());
     }
   }
   subRoutineBody->addChild((ParseTree*)mustBe("symbol", "}"));
@@ -198,37 +198,119 @@ ParseTree* CompilerParser::compileVarDec() {
  * Generates a parse tree for a series of statements
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileStatements() { return NULL; }
+ParseTree* CompilerParser::compileStatements() {
+  ParseTree* statement = new ParseTree("statements", "");
+
+  std::string statementType = current()->getValue();
+  if (statementType == "let") {
+    statement->addChild(compileLet());
+  } else if (statementType == "if") {
+    statement->addChild(compileIf());
+  } else if (statementType == "while") {
+    statement->addChild(compileWhile());
+  } else if (statementType == "do") {
+    statement->addChild(compileDo());
+  } else {
+    statement->addChild(compileReturn());
+  }
+
+  return statement;
+}
 
 /**
  * Generates a parse tree for a let statement
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileLet() { return NULL; }
+ParseTree* CompilerParser::compileLet() {
+  ParseTree* letStatement = new ParseTree("letStatement", "");
+  letStatement->addChild((ParseTree*)mustBe("keyword", "let"));
+  letStatement->addChild(
+      (ParseTree*)mustBe("identifier", current()->getValue()));
+  letStatement->addChild((ParseTree*)mustBe("symbol", "="));
+  // letStatement->addChild(compileExpression());
+  letStatement->addChild((ParseTree*)mustBe("symbol", ";"));
+  return letStatement;
+}
 
 /**
  * Generates a parse tree for an if statement
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileIf() { return NULL; }
+ParseTree* CompilerParser::compileIf() {
+  ParseTree* ifStatement = new ParseTree("ifStatement", "");
+  ifStatement->addChild((ParseTree*)mustBe("keyword", "if"));
+  ifStatement->addChild((ParseTree*)mustBe("symbol", "("));
+  ifStatement->addChild(compileExpression());
+  ifStatement->addChild((ParseTree*)mustBe("symbol", ")"));
+  ifStatement->addChild((ParseTree*)mustBe("symbol", "{"));
+  while (!have("symbol", "}")) {
+    if (have("keyword", "var")) {
+      ifStatement->addChild(compileVarDec());
+    } else {
+      ifStatement->addChild(compileStatements());
+    }
+  }
+  ifStatement->addChild((ParseTree*)mustBe("symbol", "}"));
+  if (have("keyword", "else")) {
+    ifStatement->addChild((ParseTree*)mustBe("keyword", "else"));
+    ifStatement->addChild((ParseTree*)mustBe("symbol", "{"));
+    while (!have("symbol", "}")) {
+      if (have("keyword", "var")) {
+        ifStatement->addChild(compileVarDec());
+      } else {
+        ifStatement->addChild(compileStatements());
+      }
+    }
+    ifStatement->addChild((ParseTree*)mustBe("symbol", "}"));
+  }
+  return ifStatement;
+}
 
 /**
  * Generates a parse tree for a while statement
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileWhile() { return NULL; }
+ParseTree* CompilerParser::compileWhile() {
+  ParseTree* whileStatement = new ParseTree("whileStatement", "");
+  whileStatement->addChild((ParseTree*)mustBe("keyword", "while"));
+  whileStatement->addChild((ParseTree*)mustBe("symbol", "("));
+  whileStatement->addChild(compileExpression());
+  whileStatement->addChild((ParseTree*)mustBe("symbol", ")"));
+  whileStatement->addChild((ParseTree*)mustBe("symbol", "{"));
+  while (!have("symbol", "}")) {
+    if (have("keyword", "var")) {
+      whileStatement->addChild(compileVarDec());
+    } else {
+      whileStatement->addChild(compileStatements());
+    }
+  }
+  whileStatement->addChild((ParseTree*)mustBe("symbol", "}"));
+  return whileStatement;
+}
 
 /**
  * Generates a parse tree for a do statement
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileDo() { return NULL; }
+ParseTree* CompilerParser::compileDo() {
+  ParseTree* doStatement = new ParseTree("doStatement", "");
+  doStatement->addChild((ParseTree*)mustBe("keyword", "do"));
+  doStatement->addChild(compileExpression());
+  doStatement->addChild((ParseTree*)mustBe("symbol", ";"));
+  return doStatement;
+}
 
 /**
  * Generates a parse tree for a return statement
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileReturn() { return NULL; }
+ParseTree* CompilerParser::compileReturn() {
+  ParseTree* whileStatement = new ParseTree("whileStatement", "");
+  whileStatement->addChild((ParseTree*)mustBe("keyword", "while"));
+  whileStatement->addChild(compileExpression());
+  whileStatement->addChild((ParseTree*)mustBe("symbol", ";"));
+  return whileStatement;
+}
 
 /**
  * Generates a parse tree for an expression

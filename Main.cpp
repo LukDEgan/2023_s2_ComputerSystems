@@ -13,6 +13,8 @@ int main(int argc, char* argv[]) {
    *          field char name;
    *          method int myFunc (int param1, char param2) {
    *               var int a, b;
+   *               var boolean flag;
+   *               let a = 1;
    *          }
    *     }
    */
@@ -49,6 +51,14 @@ int main(int argc, char* argv[]) {
   tokens.push_back(new Token("identifier", "a"));
   tokens.push_back(new Token("symbol", ","));
   tokens.push_back(new Token("identifier", "b"));
+  tokens.push_back(new Token("symbol", ";"));
+  tokens.push_back(new Token("keyword", "var"));
+  tokens.push_back(new Token("keyword", "boolean"));
+  tokens.push_back(new Token("identifier", "flag"));
+  tokens.push_back(new Token("symbol", ";"));
+  tokens.push_back(new Token("keyword", "let"));
+  tokens.push_back(new Token("identifier", "a"));
+  tokens.push_back(new Token("symbol", "="));
   tokens.push_back(new Token("symbol", ";"));
   tokens.push_back(new Token("symbol", "}"));
 
