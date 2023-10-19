@@ -301,13 +301,13 @@ ParseTree* CompilerParser::compileDo() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileReturn() {
-  ParseTree* whileStatement = new ParseTree("whileStatement", "");
-  whileStatement->addChild((ParseTree*)mustBe("keyword", "while"));
-  if (!have("symbol", ";")) {
-    whileStatement->addChild(compileExpression());
+  ParseTree* returnStatement = new ParseTree("returnStatement", "");
+  returnStatement->addChild((ParseTree*)mustBe("keyword", "return"));
+  while (!have("symbol", ";")) {
+    returnStatement->addChild(compileExpression());
   }
-  whileStatement->addChild((ParseTree*)mustBe("symbol", ";"));
-  return whileStatement;
+  returnStatement->addChild((ParseTree*)mustBe("symbol", ";"));
+  return returnStatement;
 }
 
 /**
