@@ -10,7 +10,20 @@ CompilerParser::CompilerParser(std::list<Token*> tokens) : tokens(tokens) {}
  * Generates a parse tree for a single program
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileProgram() { return NULL; }
+ParseTree* CompilerParser::compileProgram() {
+  ParseTree* programNode = new ParseTree("Program", "");
+
+  while (have("keyword", "class")) {
+    ParseTree* classNode = compileClass();
+    programNode->addChild(classNode);
+  }
+  if (current() == NULL) {
+    return programNode;
+  } else {
+    throw ParseException();
+  }
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a single class
@@ -19,8 +32,20 @@ ParseTree* CompilerParser::compileProgram() { return NULL; }
 ParseTree* CompilerParser::compileClass() {
   ParseTree* classNode = new ParseTree("class", "");
   mustBe("keyword", "class");
+  Token* className = mustBe("identifier", current()->getValue());
+  classNode->addChild(new ParseTree("className", className->getValue()));
   mustBe("identifier", current()->getValue());
+
   mustBe("symbol", "{");
+  while (have("keyword", "static") || have("keyword", "field")) {
+    ParseTree* classVarDecNode = compileClassVarDec();
+    classNode->addChild(classVarDecNode);
+  }
+  while (have("keyword", "constructor") || have("keyword", "function") ||
+         have("keyword", "method")) {
+    ParseTree* subroutineNode = compileSubroutine();
+    classNode->addChild(subroutineNode);
+  }
   mustBe("symbol", "}");
   return classNode;
 }
@@ -29,7 +54,17 @@ ParseTree* CompilerParser::compileClass() {
  * Generates a parse tree for a static variable declaration or field declaration
  * @return a ParseTree
  */
-ParseTree* CompilerParser::compileClassVarDec() { return NULL; }
+ParseTree* CompilerParser::compileClassVarDec() {
+  ParseTree* classVarDec = new ParseTree("classVarDec", "");
+  while (have("keyword", "field") || have("keyword", "static")) {
+    if (have("keyword", "static")) {
+      mustBe("keyword", "static");
+    } else {
+      mustBe("keyword", "field");
+    }
+  }
+  return NULL;
+}
 
 /**
  * Generates a parse tree for a method, function, or constructor
