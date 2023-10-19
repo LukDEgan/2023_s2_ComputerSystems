@@ -226,8 +226,13 @@ ParseTree* CompilerParser::compileLet() {
   letStatement->addChild((ParseTree*)mustBe("keyword", "let"));
   letStatement->addChild(
       (ParseTree*)mustBe("identifier", current()->getValue()));
+  while (have("symbol", "[]")) {
+    letStatement->addChild((ParseTree*)mustBe("symbol", "["));
+    letStatement->addChild(compileExpression());
+    letStatement->addChild((ParseTree*)mustBe("symbol", "]"));
+  }
   letStatement->addChild((ParseTree*)mustBe("symbol", "="));
-  // letStatement->addChild(compileExpression());
+  letStatement->addChild(compileExpression());
   letStatement->addChild((ParseTree*)mustBe("symbol", ";"));
   return letStatement;
 }
@@ -251,7 +256,7 @@ ParseTree* CompilerParser::compileIf() {
     }
   }
   ifStatement->addChild((ParseTree*)mustBe("symbol", "}"));
-  if (have("keyword", "else")) {
+  while (have("keyword", "else")) {
     ifStatement->addChild((ParseTree*)mustBe("keyword", "else"));
     ifStatement->addChild((ParseTree*)mustBe("symbol", "{"));
     while (!have("symbol", "}")) {
@@ -307,7 +312,9 @@ ParseTree* CompilerParser::compileDo() {
 ParseTree* CompilerParser::compileReturn() {
   ParseTree* whileStatement = new ParseTree("whileStatement", "");
   whileStatement->addChild((ParseTree*)mustBe("keyword", "while"));
-  whileStatement->addChild(compileExpression());
+  if (!have("symbol", ";")) {
+    whileStatement->addChild(compileExpression());
+  }
   whileStatement->addChild((ParseTree*)mustBe("symbol", ";"));
   return whileStatement;
 }
