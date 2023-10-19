@@ -83,8 +83,6 @@ ParseTree* CompilerParser::compileClassVarDec() {
       }
     }
   }
-
-  std::cout << current()->getValue() << std::endl;
   mustBe("symbol", ";");
 
   return classVarDec;

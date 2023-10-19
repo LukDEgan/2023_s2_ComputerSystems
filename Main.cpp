@@ -9,7 +9,8 @@ using namespace std;
 int main(int argc, char* argv[]) {
   /* Tokens for:
    *     class MyClass {
-   *          static int a, b
+   *          static int a, b;
+   *          field char name;
    *     }
    */
   list<Token*> tokens;
@@ -21,6 +22,10 @@ int main(int argc, char* argv[]) {
   tokens.push_back(new Token("identifier", "a"));
   tokens.push_back(new Token("symbol", ","));
   tokens.push_back(new Token("identifier", "b"));
+  tokens.push_back(new Token("symbol", ";"));
+  tokens.push_back(new Token("keyword", "field"));
+  tokens.push_back(new Token("keyword", "char"));
+  tokens.push_back(new Token("identifier", "name"));
   tokens.push_back(new Token("symbol", ";"));
   tokens.push_back(new Token("symbol", "}"));
 
