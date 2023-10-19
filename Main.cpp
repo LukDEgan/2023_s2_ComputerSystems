@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
    *          static int a, b;
    *          field char name;
    *          method int myFunc (int param1, char param2) {
-   *               var int a;
+   *               var int a, b;
    *          }
    *     }
    */
@@ -47,6 +47,8 @@ int main(int argc, char* argv[]) {
   tokens.push_back(new Token("keyword", "var"));
   tokens.push_back(new Token("keyword", "int"));
   tokens.push_back(new Token("identifier", "a"));
+  tokens.push_back(new Token("symbol", ","));
+  tokens.push_back(new Token("identifier", "b"));
   tokens.push_back(new Token("symbol", ";"));
   tokens.push_back(new Token("symbol", "}"));
 
