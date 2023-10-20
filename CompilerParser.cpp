@@ -201,12 +201,14 @@ ParseTree* CompilerParser::compileStatements() {
     std::string statementType = current()->getValue();
     if (statementType == "let") {
       statementsNode->addChild(compileLet());
+      std::cout << "test1" << std::endl;
     } else if (statementType == "if") {
       statementsNode->addChild(compileIf());
     } else if (statementType == "while") {
       statementsNode->addChild(compileWhile());
     } else if (statementType == "do") {
       statementsNode->addChild(compileDo());
+      std::cout << "test1" << std::endl;
     } else {
       statementsNode->addChild(compileReturn());
     }
