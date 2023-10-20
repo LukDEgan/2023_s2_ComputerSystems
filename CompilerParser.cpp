@@ -13,9 +13,10 @@ CompilerParser::CompilerParser(std::list<Token*> tokens) : tokens(tokens) {}
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileProgram() {
+  ParseTree* classNode;
   if (have("keyword", "class")) {
     while (have("keyword", "class")) {
-      ParseTree* classNode = compileClass();
+      classNode = compileClass();
     }
   } else {
     throw ParseException();
