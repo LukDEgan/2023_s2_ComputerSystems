@@ -264,8 +264,12 @@ ParseTree* CompilerParser::compileIf() {
     ifStatement->addChild((ParseTree*)mustBe("keyword", "else"));
     ifStatement->addChild((ParseTree*)mustBe("symbol", "{"));
 
-    while (!have("symbol", "}")) {
+    if (have("symbol", "}")) {
       ifStatement->addChild(compileStatements());
+    } else {
+      while (!have("symbol", "}")) {
+        ifStatement->addChild(compileStatements());
+      }
     }
 
     ifStatement->addChild((ParseTree*)mustBe("symbol", "}"));
