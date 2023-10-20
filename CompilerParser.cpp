@@ -198,6 +198,7 @@ ParseTree* CompilerParser::compileStatements() {
   while (have("keyword", "let") || have("keyword", "if") ||
          have("keyword", "while") || have("keyword", "do") ||
          have("keyword", "return")) {
+    std::cout << "test3" << std::endl;
     std::string statementType = current()->getValue();
     if (statementType == "let") {
       statementsNode->addChild(compileLet());
@@ -208,7 +209,7 @@ ParseTree* CompilerParser::compileStatements() {
       statementsNode->addChild(compileWhile());
     } else if (statementType == "do") {
       statementsNode->addChild(compileDo());
-      std::cout << "test1" << std::endl;
+      std::cout << "test2" << std::endl;
     } else {
       statementsNode->addChild(compileReturn());
     }
