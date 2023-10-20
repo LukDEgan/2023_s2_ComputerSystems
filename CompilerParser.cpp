@@ -210,6 +210,9 @@ ParseTree* CompilerParser::compileStatements() {
     } else {
       statement->addChild(compileReturn());
     }
+    if (tokens.empty()) {
+      break;
+    }
   }
   return statement;
 }
