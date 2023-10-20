@@ -278,11 +278,7 @@ ParseTree* CompilerParser::compileWhile() {
   whileStatement->addChild((ParseTree*)mustBe("symbol", ")"));
   whileStatement->addChild((ParseTree*)mustBe("symbol", "{"));
   while (!have("symbol", "}")) {
-    if (have("keyword", "var")) {
-      whileStatement->addChild(compileVarDec());
-    } else {
-      whileStatement->addChild(compileStatements());
-    }
+    whileStatement->addChild(compileStatements());
   }
   whileStatement->addChild((ParseTree*)mustBe("symbol", "}"));
   return whileStatement;
