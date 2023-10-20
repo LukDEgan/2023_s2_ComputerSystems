@@ -321,6 +321,10 @@ ParseTree* CompilerParser::compileReturn() {
  */
 ParseTree* CompilerParser::compileExpression() {
   ParseTree* expression = new ParseTree("expression", "");
+  if (current()->getValue() == "skip") {
+    expression->addChild((ParseTree*)mustBe("keyword", "skip"));
+    return expression;
+  }
   if (current() != nullptr) {
     expression->addChild(compileTerm());
   }
@@ -341,10 +345,7 @@ ParseTree* CompilerParser::compileExpression() {
  */
 ParseTree* CompilerParser::compileTerm() {
   ParseTree* term = new ParseTree("term", "");
-  if (current()->getValue() == "skip") {
-    term->addChild((ParseTree*)mustBe("keyword", "skip"));
-    return term;
-  }
+
   if (current()->getType() == "integerConstant" ||
       current()->getType() == "stringConstant" ||
       isKeywordConstant(current()->getValue())) {
