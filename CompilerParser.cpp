@@ -210,6 +210,7 @@ ParseTree* CompilerParser::compileStatements() {
     } else {
       statement->addChild(compileReturn());
     }
+    break;
   }
 
   return statement;
