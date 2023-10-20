@@ -193,21 +193,22 @@ ParseTree* CompilerParser::compileVarDec() {
  * @return a ParseTree
  */
 ParseTree* CompilerParser::compileStatements() {
-  ParseTree* statementsNode = new ParseTree("statements", "");
+  ParseTree* statement = new ParseTree("statements", "");
 
-  if (have("keyword", "let")) {
-    statementsNode->addChild(compileLet());
-  } else if (have("keyword", "if")) {
-    statementsNode->addChild(compileIf());
-  } else if (have("keyword", "while")) {
-    statementsNode->addChild(compileWhile());
-  } else if (have("keyword", "do")) {
-    statementsNode->addChild(compileDo());
-  } else if (have("keyword", "return")) {
-    statementsNode->addChild(compileReturn());
+  std::string statementType = current()->getValue();
+  if (statementType == "let") {
+    statement->addChild(compileLet());
+  } else if (statementType == "if") {
+    statement->addChild(compileIf());
+  } else if (statementType == "while") {
+    statement->addChild(compileWhile());
+  } else if (statementType == "do") {
+    statement->addChild(compileDo());
+  } else {
+    statement->addChild(compileReturn());
   }
 
-  return statementsNode;
+  return statement;
 }
 
 /**
