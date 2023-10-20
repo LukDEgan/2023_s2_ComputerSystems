@@ -194,7 +194,7 @@ ParseTree* CompilerParser::compileVarDec() {
  */
 ParseTree* CompilerParser::compileStatements() {
   ParseTree* statementsNode = new ParseTree("statements", "");
-
+  std::cout << "test3" << std::endl;
   while (have("keyword", "let") || have("keyword", "if") ||
          have("keyword", "while") || have("keyword", "do") ||
          have("keyword", "return")) {
