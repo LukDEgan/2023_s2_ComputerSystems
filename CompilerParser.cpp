@@ -248,7 +248,6 @@ ParseTree* CompilerParser::compileIf() {
   ifStatement->addChild(compileExpression());
   ifStatement->addChild((ParseTree*)mustBe("symbol", ")"));
   ifStatement->addChild((ParseTree*)mustBe("symbol", "{"));
-  ifStatement->addChild((ParseTree*)mustBe("symbol", "{"));
   while (!have("symbol", "}")) {
     std::cout << current()->tostring() << std::endl;
     ifStatement->addChild(compileStatements());
