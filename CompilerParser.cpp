@@ -206,8 +206,10 @@ ParseTree* CompilerParser::compileStatements() {
       statementsNode->addChild(compileWhile());
     } else if (statementType == "do") {
       statementsNode->addChild(compileDo());
-    } else {
+    } else if (have("keyword", "return")) {
       statementsNode->addChild(compileReturn());
+    } else {
+      break;
     }
   }
 
