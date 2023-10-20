@@ -196,21 +196,16 @@ ParseTree* CompilerParser::compileVarDec() {
 ParseTree* CompilerParser::compileStatements() {
   ParseTree* statement = new ParseTree("statements", "");
 
-  while (have("keyword", "let") || have("keyword", "if") ||
-         have("keyword", "while") || have("keyword", "do") ||
-         have("keyword", "return")) {
-    if (have("keyword", "let")) {
-      statement->addChild(compileLet());
-    } else if (have("keyword", "if")) {
-      statement->addChild(compileIf());
-    } else if (have("keyword", "while")) {
-      statement->addChild(compileWhile());
-    } else if (have("keyword", "do")) {
-      statement->addChild(compileDo());
-    } else {
-      statement->addChild(compileReturn());
-    }
-    break;
+  if (have("keyword", "let")) {
+    statement->addChild(compileLet());
+  } else if (have("keyword", "if")) {
+    statement->addChild(compileIf());
+  } else if (have("keyword", "while")) {
+    statement->addChild(compileWhile());
+  } else if (have("keyword", "do")) {
+    statement->addChild(compileDo());
+  } else if (have("keyword", "return")) {
+    statement->addChild(compileReturn());
   }
 
   return statement;
